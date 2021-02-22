@@ -2,7 +2,7 @@
                     <div class="scrollbar-inner">
                         <div class="user">
                             <div class="user__info" data-toggle="dropdown">
-                                <img class="user__img" src="http://144.202.124.151/img/logo.png" alt="">
+                                <img class="user__img" src="http://localhost/as_bretzel/img/logo.png" alt="">
                                 <div>
                                     <div class="user__name"><?php echo $_SESSION["pseudo"]?></div>
                                     <div class="user__email"><?php echo $_SESSION["type"]?></div>
@@ -13,7 +13,7 @@
                         <ul class="navigation">
                         	
 
-                            <li class="@@index"><a href=" http://144.202.124.151/index.php"><i class="fas fa-home"></i> Accueil</a></li>
+                            <li class="@@index"><a href=" http://localhost/as_bretzel/index.php"><i class="fas fa-home"></i> Accueil</a></li>
 
                                 <?php 
                                     $count_my_products = $pdo->getCountMyProducts($_SESSION['user']);
@@ -94,18 +94,18 @@
                                     <a><i class="fas fa-user-cog"></i>Administration <span class="badge bg-<?php echo $color_tickets_main ?>" style="float: right; border-radius: 100px"><?php if($total_tickets > 0){echo $total_tickets;} ?></span></a>
 
                                     <ul id="dropdown_admin">
-                                        <li class="@@photogalleryactive"><a href=" http://144.202.124.151/admin/users.php">Users</a></li>
-                                        <li class="@@photogalleryactive"><a href=" http://144.202.124.151/admin/news.php">News</a></li>
+                                        <li class="@@photogalleryactive"><a href=" http://localhost/as_bretzel/admin/users.php">Users</a></li>
+                                        <li class="@@photogalleryactive"><a href=" http://localhost/as_bretzel/admin/news.php">News</a></li>
                                         <!--<li class="@@photogalleryactive"><a href="params.php">Settings</a></li> -->
-                                        <li class="@@photogalleryactive"><a href=" http://144.202.124.151/admin/sales.php">Sales</a></li>
-                                        <li class="@@photogalleryactive"><a href=" http://144.202.124.151/admin/wallets.php">Wallets</a></li>
-                                        <li class="@@photogalleryactive"><a href=" http://144.202.124.151/admin/cards.php">Card<span class="badge bg-<?php echo $color_admin_cards ?>" style="float: right; border-radius: 100px"><?php echo $total_admin_cards ?></a></li>
+                                        <li class="@@photogalleryactive"><a href=" http://localhost/as_bretzel/admin/sales.php">Sales</a></li>
+                                        <li class="@@photogalleryactive"><a href=" http://localhost/as_bretzel/admin/wallets.php">Wallets</a></li>
+                                        <li class="@@photogalleryactive"><a href=" http://localhost/as_bretzel/admin/cards.php">Card<span class="badge bg-<?php echo $color_admin_cards ?>" style="float: right; border-radius: 100px"><?php echo $total_admin_cards ?></a></li>
                                         <!--<li class="@@photogalleryactive"><a href="http://localhost/news">News</a></li>-->
                                         <!--<li class="@@photogalleryactive"><a href="http://localhost/newsletters">News Letters</a></li>-->
-                                        <li class="@@photogalleryactive"><a href=" http://144.202.124.151/admin/deposits.php">Deposits <span class="badge bg-<?php echo $color_deposits ?>" style="float: right; border-radius: 100px"><?php echo $total_deposits ?></a></li>
-                                        <li class="@@photogalleryactive"><a href=" http://144.202.124.151/admin/withdrawals.php">Withdraw request <span class="badge bg-<?php echo $color_withdraws; ?>" style="float: right; border-radius: 100px"><?php echo $total_withdraws ?></a></li>
-                                        <li style="display: none;" class="@@typeactive"><a href="http://144.202.124.151/admin/reports.php">Reports <span class="badge bg-<?php echo $color_reports ?>" style="float: right; border-radius: 100px"><?php echo $total_reports ?></a></li>
-                                        <li class="@@typeactive"><a href=" http://144.202.124.151/admin/tickets.php">Tickets <span class="badge bg-<?php echo $color_tickets ?>" style="float: right; border-radius: 100px"><?php echo $total_tickets ?></span></a></li>
+                                        <li class="@@photogalleryactive"><a href=" http://localhost/as_bretzel/admin/deposits.php">Deposits <span class="badge bg-<?php echo $color_deposits ?>" style="float: right; border-radius: 100px"><?php echo $total_deposits ?></a></li>
+                                        <li class="@@photogalleryactive"><a href=" http://localhost/as_bretzel/admin/withdrawals.php">Withdraw request <span class="badge bg-<?php echo $color_withdraws; ?>" style="float: right; border-radius: 100px"><?php echo $total_withdraws ?></a></li>
+                                        <li style="display: none;" class="@@typeactive"><a href="http://localhost/as_bretzel/admin/reports.php">Reports <span class="badge bg-<?php echo $color_reports ?>" style="float: right; border-radius: 100px"><?php echo $total_reports ?></a></li>
+                                        <li class="@@typeactive"><a href=" http://localhost/as_bretzel/admin/tickets.php">Tickets <span class="badge bg-<?php echo $color_tickets ?>" style="float: right; border-radius: 100px"><?php echo $total_tickets ?></span></a></li>
                                     </ul>
 
                                 </li>
@@ -122,17 +122,17 @@
                         ?>
                         
                         <li class="navigation__sub navigation__sub">                         
-                            <a href=" http://144.202.124.151/main/tickets.php"><i class="fas fa-ticket-alt"></i>Tickets <span class="badge bg-<?php echo $color_my_tickets ?>" style="float: right; border-radius: 100px"><?php echo $count_my_tickets ?></span></a>
+                            <a href=" http://localhost/as_bretzel/main/tickets.php"><i class="fas fa-ticket-alt"></i>Tickets <span class="badge bg-<?php echo $color_my_tickets ?>" style="float: right; border-radius: 100px"><?php echo $count_my_tickets ?></span></a>
                         </li>
 
                         <?php
                             }
                         ?>
 
-                        <li class="@@typeactive"><a href=" http://144.202.124.151/main/card.php"><i class="fas fa-credit-card"></i>  Cartes <span class="badge bg-<?php echo $color_cards_confirmed ?>" style="float: right; border-radius: 100px"><?php echo $total_cards_confirmed ?></span></a></li>                                                      
+                        <li class="@@typeactive"><a href=" http://localhost/as_bretzel/main/card.php"><i class="fas fa-credit-card"></i>  Cartes <span class="badge bg-<?php echo $color_cards_confirmed ?>" style="float: right; border-radius: 100px"><?php echo $total_cards_confirmed ?></span></a></li>                                                      
                         
                         
-                        <li class="@@typeactive"><a style="background: #50583c;" href=" http://144.202.124.151/main/purchases.php"><i class="fas fa-shopping-cart"></i> Mes achats <span class="badge bg-<?php echo $color_my_purchases ?>" style="float: right; border-radius: 100px"><?php echo $count_my_purchases?></span></a></li>                                                      
+                        <li class="@@typeactive"><a style="background: #50583c;" href=" http://localhost/as_bretzel/main/purchases.php"><i class="fas fa-shopping-cart"></i> Mes achats <span class="badge bg-<?php echo $color_my_purchases ?>" style="float: right; border-radius: 100px"><?php echo $count_my_purchases?></span></a></li>                                                      
                         
 
 
@@ -140,7 +140,7 @@
                             if(strtoupper($_SESSION['type']) == "SELLER" || strtoupper($_SESSION['type']) == "ADMIN"){     
                         ?>
 
-                        <li class="@@typeactive"><a href=" http://144.202.124.151/main/store.php?id=<?php echo $_SESSION['user']?>" id="store_sidebar"><i class="fas fa-store"></i> Mon shop<span class="badge bg-<?php echo $color_my_products ?>" style="float: right; border-radius: 100px"><?php echo $count_my_products?></span></a></li>                                                      
+                        <li class="@@typeactive"><a href=" http://localhost/as_bretzel/main/store.php?id=<?php echo $_SESSION['user']?>" id="store_sidebar"><i class="fas fa-store"></i> Mon shop<span class="badge bg-<?php echo $color_my_products ?>" style="float: right; border-radius: 100px"><?php echo $count_my_products?></span></a></li>                                                      
                         
                         <?php
                             }

@@ -2,11 +2,11 @@
     session_start();
 
     if(!$_SESSION['logged']){
-        header("Location: http://144.202.124.151/main/login.php");
+        header("Location: http://localhost/as_bretzel/main/login.php");
     }
     
     $path = $_SERVER['DOCUMENT_ROOT'];
-    $path .= "/db/pdo.php";
+    $path .= "/as_bretzel/db/pdo.php";
 
 
     include_once($path);
@@ -70,7 +70,7 @@
 	                            <h5 class="modal-title pull-left">Deposit</h5>
 	                        </div>
 	                        <div class="modal-body">
-	                            <form class="form" id="boobsform" method="" action=""><div class="row"><div class="col-md-6 col-centered"><div class="form-group"><center><label for="pm"><img src="http://localhost/_template/img/pm.png" style="width:50px;"></label><br><input type="radio" onclick="PMSelect();" class="methode" id="pm" name="methode" value="0"></center></div></div><div class="col-md-6 col-centered"><div class="form-group"><center><label for="bitcoin"><img src="http://144.202.124.151/img/btc.png" style="width:50px;"></label><br><input type="radio" class="methode" id="bitcoin" name="methode" onclick="BTCSelect();" value="1"></center></div></div></div><div class="form-group"><label class="label">How Much you want to deposit (Minimum deposit $10)</label><label class="label">Please set the amount with euro (Exemple 10)</label><input type="text" id="deposit_ammount" class="form-control text-center" name="deposit_ammount"><i class="form-group__bar"></i></div><div class="d-flex justify-content-center">
+	                            <form class="form" id="boobsform" method="" action=""><div class="row"><div class="col-md-6 col-centered"><div class="form-group"><center><label for="pm"><img src="http://localhost/_template/img/pm.png" style="width:50px;"></label><br><input type="radio" onclick="PMSelect();" class="methode" id="pm" name="methode" value="0"></center></div></div><div class="col-md-6 col-centered"><div class="form-group"><center><label for="bitcoin"><img src="http://localhost/as_bretzel/img/btc.png" style="width:50px;"></label><br><input type="radio" class="methode" id="bitcoin" name="methode" onclick="BTCSelect();" value="1"></center></div></div></div><div class="form-group"><label class="label">How Much you want to deposit (Minimum deposit $10)</label><label class="label">Please set the amount with euro (Exemple 10)</label><input type="text" id="deposit_ammount" class="form-control text-center" name="deposit_ammount"><i class="form-group__bar"></i></div><div class="d-flex justify-content-center">
 					<button type="reset" class="btn btn-light" style="margin-right:15px;" data-dismiss="modal">Close</button><button type="button" class="btn btn-light " onclick="initdepo()" id="deposbtn" name="">Deposit Now</button></div><input type="hidden" name="PAYEE_ACCOUNT" value="PM User"><input type="hidden" name="PAYEE_NAME" value="Payer Name"><input type="hidden" name="PAYMENT_ID" value="Payment ID"><input type="hidden" name="PAYMENT_UNITS" value="USD"><input type="hidden" name="STATUS_URL" value="http://localhost/pmhook"><input type="hidden" name="PAYMENT_URL" value="http://localhost/pmhook"><input type="hidden" name="PAYMENT_URL_METHOD" value="GET"><input type="hidden" name="NOPAYMENT_URL" value="http://localhost/dashboard"><input type="hidden" name="NOPAYMENT_URL_METHOD" value="GET"><input type="hidden" name="SUGGESTED_MEMO" value=""><input type="hidden" name="BAGGAGE_FIELDS" value=""></form></div>
 	    	
 	                        </div>

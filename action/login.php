@@ -4,14 +4,14 @@
     $username = $_POST["username"];
     $password = md5($_POST["password"]);
 
-    include("../db/pdo.php");
+    include("../as_bretzel/db/pdo.php");
 
     $pdo = databaseConnection::getInstance();
 
     $login = $pdo->login($username, $password);
 
     if($login == "0"){
-        header("Location:  http://144.202.124.151/main/login.php?auth=wrong");
+        header("Location:  http://localhost/as_bretzel/main/login.php?auth=wrong");
     } else {
         $_SESSION['user'] = $login[0];
         $_SESSION['type'] = $login[1];

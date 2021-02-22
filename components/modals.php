@@ -10,7 +10,7 @@
     </div>
     <div class="modal-body">
     <form class="form" id="boobsform"><div class="row" style="display:flex; justify-content: center; align-items: center;">
-    <div class="col-md-6 col-centered"><div class="form-group"><center><label for="bitcoin"><img src="http://144.202.124.151/img/btc.png" style="width:50px;"></label><br>
+    <div class="col-md-6 col-centered"><div class="form-group"><center><label for="bitcoin"><img src="http://localhost/as_bretzel/img/btc.png" style="width:50px;"></label><br>
     </center></div></div></div><div class="form-group" style="display: flex; flex-direction: column; align-items: center">
         <label class="label">Combien voulez vous déposer ? (Dépôt minimum = €10)</label>
         <label class="label">Merci de rentrer un montant en euros (Exemple 10)</label><input type="text" id="deposit_ammount" class="form-control text-center" name="deposit_ammount"><i class="form-group__bar"></i></div><div class="d-flex justify-content-center">
@@ -32,7 +32,7 @@
     </div>
     <div class="modal-body">
     <form class="form" id="boobsform"><div class="row" style="display:flex; justify-content: center; align-items: center;">
-    <div class="col-md-6 col-centered"><div class="form-group"><center><label for="bitcoin"><img src="http://144.202.124.151/img/btc.png" style="width:50px;"></label><br>
+    <div class="col-md-6 col-centered"><div class="form-group"><center><label for="bitcoin"><img src="http://localhost/as_bretzel/img/btc.png" style="width:50px;"></label><br>
     </center></div></div></div><div class="form-group" style="display: flex; flex-direction: column; align-items: center">
         <label class="label">Combien voulez-vous retirer ? (Retrait minimum = €10)</label><label class="label">Merci de rentrer un montant en euros (Exemple 10)</label><input type="text" id="deposit_ammount" class="form-control text-center" name="deposit_ammount"><i class="form-group__bar"></i></div><div class="d-flex justify-content-center">
     <a type="reset" class="btn btn-light" style="margin-right:15px;" data-dismiss="modal" href="#">Retour</a><button type="button" class="btn btn-light " onclick="initdepo()" id="deposbtn">Retirer maintenant</button></div></form></div>

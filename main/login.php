@@ -32,7 +32,7 @@
             <!-- Login -->
             <div class="login__block active" id="l-login">
                 <div class="login__block__header">
-                    <img class="user__img" src="http://144.202.124.151/img/flogo.png" alt="">
+                    <img class="user__img" src="http://localhost/as_bretzel/img/flogo.png" alt="">
                     Hi, Please Sign in
 
                     <div class="actions actions--inverse login__block__actions">
@@ -59,7 +59,7 @@
                 <?php } ?>
 
                 <div class="login__block__body">
-                	<form method="POST" id="loginform" action=" http://144.202.124.151/action/login.php">
+                	<form method="POST" id="loginform" action=" http://localhost/as_bretzel/action/login.php">
                     	<div class="form-group">
                         	<input type="text" class="form-control text-center" name="username" placeholder="Username">
                    		</div>
@@ -90,7 +90,7 @@
             <!-- Register -->
             <div class="login__block" id="l-register">
                 <div class="login__block__header">
-                    <img class="user__img" src="http://144.202.124.151/img/flogo.png" alt="">
+                    <img class="user__img" src="http://localhost/as_bretzel/img/flogo.png" alt="">
                      Join Us                   
                     <div class="actions actions--inverse login__block__actions">
                         <div class="dropdown">                           
@@ -137,7 +137,7 @@
             <!-- Forgot Password -->
             <div class="login__block" id="l-forget-password">
                 <div class="login__block__header">
-                    <img class="user__img" src="http://144.202.124.151/img/flogo.png" alt="">
+                    <img class="user__img" src="http://localhost/as_bretzel/img/flogo.png" alt="">
                     Forgot your password?
 
                     <div class="actions actions--inverse login__block__actions">
