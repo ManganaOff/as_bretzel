@@ -1,0 +1,207 @@
+body::-webkit-scrollbar {
+    background-color: rgb(73, 73, 73);               
+}
+
+::-webkit-file-upload-button{
+    background-color:#222;
+    color: #aaa;
+    border: 1px solid #555;
+    outline: none;
+}
+
+#label_upload_file {
+    border: 1px solid #444;
+    padding: 4px;
+    border-radius: 10px;
+}
+
+#dropdown_admin {
+    display: none;
+}
+
+#head_admin:hover > #dropdown_admin {
+    display: block;
+}
+
+
+#dropdown_user {
+    display: none;
+}
+
+#head_user:hover > #dropdown_user {
+    display: block;
+}
+
+
+#modal_deposit:target {
+    display: block;
+}
+
+#modal_withdraw:target {
+    display: block;
+}
+
+#modale_add_card:target {
+    display: block;
+}
+
+#modale_view_card:target {
+    display: block;
+}
+
+#modale_view_purchased_card:target {
+    display: block;
+}
+
+#modale_new_ticket:target {
+    display: block;
+}
+
+#modale_seller_cards:target {
+    display: block;
+}
+
+#modale_edit_user:target {
+    display: block;
+}
+
+#modale_delete_user:target {
+    display: block;
+}
+
+#modale_add_news:target {
+    display: block;
+}
+
+#modale_add_wallet:target {
+    display: block;
+}
+
+#modale_my_purchases_cards:target {
+    display: block;
+}
+
+#modale_import_cc:target {
+    display: block;
+}
+
+i {
+    font-size: 20px;
+}
+
+.login-fa {
+    font-size: 34px;
+    color: #7c2014;
+}
+
+.add_card {
+    color: #eee
+}
+
+.modal {
+    background-color: rgba(0, 0, 0, 0.89);
+}
+
+#store_sidebar {
+    background: #cbcdc5;
+    color: #50583c;
+    margin-top: 4px;
+}
+
+#store_sidebar:hover {
+    background: hsl(75, 7%, 69%);
+    color: hsl(77, 19%, 19%);
+}
+
+#close_ticket{
+    width: 100%;
+    display: block;
+    height: 37px;
+    color: #333;
+}
+
+a.telegram{
+    background: #2a9ed9!important;
+    color: #21485f!important;
+    font-weight: bold!important;
+    display: flex!important;
+    justify-content: center;
+    align-items: center;
+    width: 41px;
+    border-radius: 28px!important;
+    transform: translateY(100px);
+}
+
+
+a.telegram:hover {
+    background: hsl(200, 70%, 41%)!important;
+}
+
+i.telegram{
+    color: #21485f!important;
+    transform: translateX(3px);
+}
+
+select.user {
+    display: block;
+    width: 100%;
+    height: 33px;
+    background: #000;
+    border: 1px solid #333;
+    color: #ddd;
+}
+
+.news-div {
+    width: 500px;
+    height: 110px;
+    display: inline-block;
+    max-height: 110px;
+    background: hsla(240, 10%, 15%, 1);
+    padding: 10px;
+    margin: 10px;
+    min-height: 130px;
+    font-family: "Arial";
+}
+
+.header-new{
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #333;
+    margin-bottom: 16px;
+}
+
+#w-news h5{
+    font-size: 17px;
+    font-weight: bold;
+    font-family: "Arial";
+    color: #eee;
+    display: inline-block;
+    flex-grow: 1;
+}
+
+#w-news h6{
+    display: inline-block;
+    color: #545464;
+    font-family: "Arial";
+}
+
+.rond-bleu{
+    display: inline-block;
+    width: 11px!important;
+    background: #2a9ed9;
+    height: 11px;
+    border-radius: 20px;
+    margin-left: 8px;
+}
+
+.first-new{
+    min-height: 280px;
+}
+
+.bloc-all-news {
+    display: flex;
+}
+
+.btn-success, .bg-success, .alert-success {
+    background: #2a9ed9!important;
+}

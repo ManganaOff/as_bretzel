@@ -1,0 +1,5 @@
+changer /db/pdo.php par /db/pdo.php
+
+changer http://144.202.124.151/ par http://ip-server/
+
+commenter decommenter fichier styles.php
