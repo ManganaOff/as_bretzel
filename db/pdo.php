@@ -832,7 +832,6 @@ class databaseConnection {
         }
     }
 
-
     public function autocompleteCard($id_card, $banque, $level, $country){
         try {
             $this->utf8();
