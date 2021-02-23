@@ -146,7 +146,7 @@
                             }
                         ?>
 
-                        <li style='display: flex; justify-content: flex-end;' class="@@typeactive"><a target="_blank" class="telegram" href="http://t.me/testbretzel" id="store_sidebar"><i class="fab fa-telegram-plane telegram"></i></a></li>                                                      
+                        <li style='display: flex; justify-content: flex-end;' class="@@typeactive" id="li_tg"><a target="_blank" class="telegram" href="http://t.me/testbretzel" id="store_sidebar">Join us<i class="fab fa-telegram-plane telegram"></i></a></li>                                                      
 
                         </ul>
                     </div>

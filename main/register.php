@@ -84,8 +84,34 @@
                     </div>
                 </div>
 
+                <?php if(isset($_GET['error']) && $_GET['error'] == "length") {?> 
+
+                <div class="alert alert-danger">
+                    Votre mot de passe doit faire au moins 5 caractères.
+                </div>
+                
+                <?php } ?>
+
+                <?php if(isset($_GET['error']) && $_GET['error'] == "lengthusername") {?> 
+
+                <div class="alert alert-danger">
+                    Veuillez entrer un username correct s'il vous plait.
+                </div>
+
+                <?php } ?>
+
+                <?php if(isset($_GET['error']) && $_GET['error'] == "taken") {?> 
+
+                <div class="alert alert-danger">
+                    Ce nom d'utilisateur est déjà utilisé. Merci d'en choisir un autre.
+                </div>
+
+                <?php } ?>
+
                 <div class="login__block__body">
                 	<form method="POST" id="regform" action=" http://localhost/as_bretzel/action/register.php">
+
+
                         <div class="form-group">
                             <input type="text" class="form-control text-center" name="username" placeholder="Username">
                         </div>

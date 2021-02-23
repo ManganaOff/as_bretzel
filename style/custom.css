@@ -127,19 +127,31 @@ a.telegram{
     display: flex!important;
     justify-content: center;
     align-items: center;
-    width: 41px;
-    border-radius: 28px!important;
-    transform: translateY(140px);
+    height: 44px;
+    width: 222px;
+    color: #ddd!important;
+    font-size: 16px;
 }
 
+#li_tg{
+    position: fixed;
+    bottom: 12px;
+}
 
 a.telegram:hover {
     background: hsl(200, 70%, 41%)!important;
 }
 
 i.telegram{
-    color: #21485f!important;
-    transform: translateX(3px);
+    color: #ccc!important;
+    background: #186186;
+    width: 32px!important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 32px!important;
+    border-radius: 24px;
+    transform: translateX(59px);
 }
 
 select.user {
