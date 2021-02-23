@@ -104,7 +104,7 @@
                                         <!--<li class="@@photogalleryactive"><a href="http://localhost/newsletters">News Letters</a></li>-->
                                         <li class="@@photogalleryactive"><a href=" http://localhost/as_bretzel/admin/deposits.php">Deposits <span class="badge bg-<?php echo $color_deposits ?>" style="float: right; border-radius: 100px"><?php echo $total_deposits ?></a></li>
                                         <li class="@@photogalleryactive"><a href=" http://localhost/as_bretzel/admin/withdrawals.php">Withdraw request <span class="badge bg-<?php echo $color_withdraws; ?>" style="float: right; border-radius: 100px"><?php echo $total_withdraws ?></a></li>
-                                        <li style="display: none;" class="@@typeactive"><a href="http://localhost/as_bretzel/admin/reports.php">Reports <span class="badge bg-<?php echo $color_reports ?>" style="float: right; border-radius: 100px"><?php echo $total_reports ?></a></li>
+                                        <li class="@@typeactive"><a href="http://localhost/as_bretzel/admin/reports.php">Refund requests <span class="badge bg-<?php echo $color_reports ?>" style="float: right; border-radius: 100px"><?php echo $total_reports ?></a></li>
                                         <li class="@@typeactive"><a href=" http://localhost/as_bretzel/admin/tickets.php">Tickets <span class="badge bg-<?php echo $color_tickets ?>" style="float: right; border-radius: 100px"><?php echo $total_tickets ?></span></a></li>
                                     </ul>
 

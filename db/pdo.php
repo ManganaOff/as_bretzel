@@ -718,7 +718,7 @@ class databaseConnection {
         if($results){
             return $html;
         } else {
-            return "<br>There are no cards available.";
+            return "<br>Aucune carte n'est disponible pour le moment.";
         }
     }
 
@@ -787,7 +787,7 @@ class databaseConnection {
         if($results){
             return $html;
         } else {
-            return "<br>There are no cards available.";
+            return "<br>Aucune carte n'est disponible pour le moment.";
         }
     }
 
@@ -832,6 +832,8 @@ class databaseConnection {
         }
     }
 
+
+
     public function checkLuxCard($numeros, $expm, $expy, $cvv){
         $url = 'https://luxchecker.pw/apiv2/ck.php?cardnum=' . $numeros . '&expm=' .$expm. '&expy='.$expy.'&cvv='.$cvv.'&key=ed6158932dc835664b45841ecf18b817&username=bretzel';
 
@@ -840,6 +842,8 @@ class databaseConnection {
 
         return $obj->error;
     }
+
+
 
     public function autocompleteCard($id_card, $banque, $level, $country){
         try {
@@ -960,7 +964,7 @@ class databaseConnection {
         if($results){
             return $html;
         } else {
-            return "There are no cards available.";
+            return "Aucune carte n'est disponible pour le moment.";
         }
     }
     
@@ -1042,14 +1046,14 @@ class databaseConnection {
                 if($result['reviewed'] == 0) {             
                     $html .= "<tr role='row' class='odd'>
                                     <td style='width: 30px; class=' dt-center'>{$result['date']}</td>
-                                    <td class=' dt-center' style='width: 30px;'>Bank</td>
+                                    <td class=' dt-center' style='width: 30px;'>{$result['banque']}</td>
                                     <td style='width: 24px' class=' dt-center'>{$seller}</td>
                                     <td style='width: 35px' class=' dt-center'>
                                         <a href='../action/add/good_review.php?seller={$result['seller']}&type_product={$result['type_product']}&id_product={$result['id_card']}&id_order={$result['id_order']}' style='margin-right: 10px; font-weight: bold; background:#28a745!important;' class='btn btn-success'>+</a>
                                         <a href='../action/add/bad_review.php?seller={$result['seller']}&type_product={$result['type_product']}&id_product={$result['id_card']}&id_order={$result['id_order']}' style='font-weight: bold;' class='btn btn-danger'>-</a>
                                     </td>
                                     <td style='width: 24px' class=' dt-center'>
-                                        <a href='http://localhost/as_bretzel/action/update/check_lux_card.php?numeros={$result['numeros']}&expm={$expm}&expy={$expy}&cvv={$result['cvv']}' style='color: #333;{$display_check}' class='btn btn-warning'>Check ({$time_left} min restantes)</a>
+                                        <a href='http://localhost/as_bretzel/action/update/check_lux_card.php?numeros={$result['numeros']}&expm={$expm}&expy={$expy}&cvv={$result['cvv']}&card={$result['id_card']}' style='color: #333;{$display_check}' class='btn btn-warning'>Check ({$time_left} min restantes)</a>
                                         <a href='?id={$result['id_card']}#modale_view_purchased_card' style='color: #fff;' class='btn btn-info'>Voir</a>
                                         <a href='../action/delete/delete_purchased_card.php?order={$result['id_order']}' style='color: #fff;' class='btn btn-danger'>Supprimer</a>
                                     </td>
@@ -1061,7 +1065,7 @@ class databaseConnection {
                                     <td style='width: 24px' class=' dt-center'>{$seller}</td>
                                     <td style='width: 35px' class=' dt-center'><span class='badge badge-primary'>Déjà feed</span></td>
                                     <td style='width: 120px' class=' dt-center'>
-                                        <a href='http://localhost/as_bretzel/action/update/check_lux_card.php?numeros={$result['numeros']}&expm={$expm}&expy={$expy}&cvv={$result['cvv']}' style='color: #333;{$display_check}' class='btn btn-warning'>Check ({$time_left} min restantes)</a>
+                                        <a href='http://localhost/as_bretzel/action/update/check_lux_card.php?numeros={$result['numeros']}&expm={$expm}&expy={$expy}&cvv={$result['cvv']}&card={$result['id_card']}' style='color: #333;{$display_check}' class='btn btn-warning'>Check ({$time_left} min restantes)</a>
                                         <a href='?id={$result['id_card']}#modale_view_purchased_card' style='color: #fff;' class='btn btn-info'>Voir</a>
                                         <a href='../action/delete/delete_purchased_card.php?order={$result['id_order']}' style='color: #fff;' class='btn btn-danger'>Supprimer</a>
                                     </td>
@@ -1642,6 +1646,40 @@ class databaseConnection {
                                         ");
             $query->execute(array(':id_card' => $id_card
                                  )
+                                );
+            return 1;
+            } catch (PDOException $e) {
+                return $e;
+        }       
+    }
+
+    // Fonction pour indiquer qu'une carte a validé le check luxchecker
+    public function checkCard($id_card){
+        try {
+            $this->utf8();
+            $query = $this->pdo->prepare("UPDATE cards
+                                            SET checked = 1
+                                            WHERE id=:id_card
+                                        ");
+            $query->execute(array(':id_card' => $id_card
+                                    )
+                                );
+            return 1;
+            } catch (PDOException $e) {
+                return $e;
+        }       
+    }
+    
+    // Fonction pour indiquer qu'une carte n'a pas validé le check luxchecker
+    public function uncheckCard($id_card){
+        try {
+            $this->utf8();
+            $query = $this->pdo->prepare("UPDATE cards
+                                            SET checked = 2
+                                            WHERE id=:id_card
+                                        ");
+            $query->execute(array(':id_card' => $id_card
+                                    )
                                 );
             return 1;
             } catch (PDOException $e) {

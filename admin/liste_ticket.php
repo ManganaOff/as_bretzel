@@ -21,7 +21,7 @@
                               </li>
                             </div>
                         </div>
-                        <div class="card-body" style="overflow-x: scroll">
+                        <div class="card-body">
                             <h4 class="card-title">My Tickets</h4>
                                  <input type="hidden" name="tboob" value="a0168735d1a5743cdc40e0419c6d9ea7">                            
                                 <div id="BoobsTable_wrapper" class="dataTables_wrapper no-footer"><div style="display: none" class="dataTables_length" id="BoobsTable_length"><label>Show <select style="display: none" name="BoobsTable_length" aria-controls="BoobsTable" class=""><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div><div id="BoobsTable_processing" class="dataTables_processing" style="display: none;">Processing...</div>

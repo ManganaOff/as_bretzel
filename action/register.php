@@ -3,7 +3,7 @@
     $email = $_POST["email"];
     $password = md5($_POST["password"]);
 
-    include("../as_bretzel/db/pdo.php");
+    include("../db/pdo.php");
 
     $pdo = databaseConnection::getInstance();
 
