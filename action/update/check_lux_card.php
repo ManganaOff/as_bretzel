@@ -13,10 +13,10 @@
 
     if(strtoupper($checkLux) == "NONE"){
         $pdo->checkCard($_GET['card']);
+        header("location: http://localhost/as_bretzel/main/purchases.php?check=true#modale_my_purchases_cards");
     } else {
         $pdo->uncheckCard($_GET['card']);
+        header("location: http://localhost/as_bretzel/main/purchases.php?check=false#modale_my_purchases_cards");
     }
-
-    header("location: http://localhost/as_bretzel/main/purchases.php#modale_my_purchases_cards");
 ?>
 

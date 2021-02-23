@@ -31,11 +31,14 @@
     <h5 class="modal-title pull-left">Retrait</h5>
     </div>
     <div class="modal-body">
-    <form class="form" id="boobsform"><div class="row" style="display:flex; justify-content: center; align-items: center;">
+    <form class="form" id="boobsform" method="POST" action="http://localhost/as_bretzel/action/add/add_withdraw.php">
+    <div class="row" style="display:flex; justify-content: center; align-items: center;">
     <div class="col-md-6 col-centered"><div class="form-group"><center><label for="bitcoin"><img src="http://localhost/as_bretzel/img/btc.png" style="width:50px;"></label><br>
     </center></div></div></div><div class="form-group" style="display: flex; flex-direction: column; align-items: center">
-        <label class="label">Combien voulez-vous retirer ? (Retrait minimum = €10)</label><label class="label">Merci de rentrer un montant en euros (Exemple 10)</label><input type="text" id="deposit_ammount" class="form-control text-center" name="deposit_ammount"><i class="form-group__bar"></i></div><div class="d-flex justify-content-center">
-    <a type="reset" class="btn btn-light" style="margin-right:15px;" data-dismiss="modal" href="#">Retour</a><button type="button" class="btn btn-light " onclick="initdepo()" id="deposbtn">Retirer maintenant</button></div></form></div>
+        <label class="label">Combien voulez-vous retirer ? (Retrait minimum = €10)</label><label class="label">Merci de rentrer un montant en euros (Exemple 10)</label>
+        <input type="text" id="ammount" class="form-control text-center" name="amount"><i class="form-group__bar"></i></div><div class="d-flex justify-content-center">
+    <a type="reset" class="btn btn-light" style="margin-right:15px;" data-dismiss="modal" href="#">Retour</a>
+    <button type="submit" class="btn btn-light " onclick="initdepo()" id="deposbtn">Retirer maintenant</button></div></form></div>
 
     </div>
     </div>
@@ -246,7 +249,18 @@ date">••/••</div></div></div><div class="jp-card-back"><div class="jp-ca
 	                            <h5 class="modal-title pull-left"></h5>
 	                        </div>
 	                        <div class="modal-body">
-	                            <div class="card"><h4 class="card-title">Cards </h4><div id="BoobsTableView_wrapper" class="dataTables_wrapper no-footer"><div style="display: none" class="dataTables_length" id="BoobsTableView_length"><label>Show <select style="display: none;" name="BoobsTableView_length" aria-controls="BoobsTableView" class=""><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div>
+	                            <div class="card"><h4 class="card-title">Cards </h4>
+                                
+                                <?php if(isset($_GET['check']) && $_GET['check'] == "true"){ ?>
+                                <div class="alert alert-success">La carte a été checkée avec succes et est bien valide.</div>
+                                <?php } ?>
+
+                                <?php if(isset($_GET['check']) && $_GET['check'] == "wrong"){ ?>
+                                <div class="alert alert-danger">La carte n'est pas valide. Vous pouvez demander un refund pendant le délai imparti.</div>
+                                <?php } ?>
+
+                                <div id="BoobsTableView_wrapper" class="dataTables_wrapper no-footer">
+                                <div style="display: none" class="dataTables_length" id="BoobsTableView_length"><label>Show <select style="display: none;" name="BoobsTableView_length" aria-controls="BoobsTableView" class=""><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div>
                                         <?php echo $pdo->getMyPurchasedCards($_SESSION['user']); ?>
 			                            <div  style="display:none" class="dataTables_paginate paging_simple_numbers" id="BoobsTableView_paginate"><a class="paginate_button previous disabled" aria-controls="BoobsTableView" data-dt-idx="0" tabindex="0" id="BoobsTableView_previous">Previous</a><span><a class="paginate_button current" aria-controls="BoobsTableView" data-dt-idx="1" tabindex="0">1</a></span><a class="paginate_button next disabled" aria-controls="BoobsTableView" data-dt-idx="2" tabindex="0" id="BoobsTableView_next">Next</a></div></div></div><div class="d-flex justify-content-center">
 			                            <a type="reset" class="btn btn-light" style="margin-right:15px;" data-dismiss="modal" href="#">Close</a></div>	    	

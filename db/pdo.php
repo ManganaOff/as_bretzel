@@ -74,6 +74,20 @@ class databaseConnection {
 
 
 
+    // Fonction pour récupérer la liste des cartes à afficher dans le shop
+    public function isUsernameUsed($username)
+    {
+        $this->utf8();
+        $query = $this->pdo->prepare("SELECT id FROM users WHERE username = :username");
+        $query->execute(array('username' => $username));
+        $result = $query->fetch();
+        if ($result) {
+            return true;
+        } else {
+            return false;
+        }       
+    }
+
 
     // Fonction pour récupérer le name d'un vendeur avec son user id
     public function getSellerName($id){
@@ -260,10 +274,23 @@ class databaseConnection {
                               ':email' => $email, 
                               )
                             );
-        return 1;
+        return $this->getLastUserId();
         } catch (PDOException $e) {
             return $e;
         }
+    }
+
+    // Fonction pour récupérer le montant de la balance
+    public function getLastUserId(){
+        $this->utf8();
+        $query = $this->pdo->prepare("SELECT id FROM users ORDER BY id DESC LIMIT 1");
+        $query->execute();
+        $result = $query->fetch();
+        if ($result) {
+            return $result["id"];
+        } else {
+            return 0;
+        }       
     }
 
     // Fonction pour récupérer le montant de la balance
@@ -1038,10 +1065,26 @@ class databaseConnection {
 
                 if(!$is_in_delay || $result["checked"] == "1"){
                     $display_check = "display:none;";
+                    $display_refund = "display:none";
+                } 
+
+                if($is_in_delay){
+                    if ($result['checked'] == "0"){
+                        $display_check = "";
+                        $display_refund = "display:none";
+                        $time_left = 10 - explode(":", $delai)[1];
+                    } 
+                    
+                    if ($result['checked'] == "2"){
+                        $time_left = 10 - explode(":", $delai)[1];
+                        $display_check = "display:none;";
+                        $display_refund = "";
+                    }
                 } else {
-                    $display_check = "";
-                    $time_left = 10 - explode(":", $delai)[1];
+                    $display_check = "display:none";
+                    $display_refund = "display:none";
                 }
+
 
                 if($result['reviewed'] == 0) {             
                     $html .= "<tr role='row' class='odd'>
@@ -1053,6 +1096,7 @@ class databaseConnection {
                                         <a href='../action/add/bad_review.php?seller={$result['seller']}&type_product={$result['type_product']}&id_product={$result['id_card']}&id_order={$result['id_order']}' style='font-weight: bold;' class='btn btn-danger'>-</a>
                                     </td>
                                     <td style='width: 24px' class=' dt-center'>
+                                        <a style='color: #333;{$display_refund}' class='btn btn-warning'>Demande de refund ({$time_left} min restantes)</a>
                                         <a href='http://localhost/as_bretzel/action/update/check_lux_card.php?numeros={$result['numeros']}&expm={$expm}&expy={$expy}&cvv={$result['cvv']}&card={$result['id_card']}' style='color: #333;{$display_check}' class='btn btn-warning'>Check ({$time_left} min restantes)</a>
                                         <a href='?id={$result['id_card']}#modale_view_purchased_card' style='color: #fff;' class='btn btn-info'>Voir</a>
                                         <a href='../action/delete/delete_purchased_card.php?order={$result['id_order']}' style='color: #fff;' class='btn btn-danger'>Supprimer</a>
@@ -1065,6 +1109,7 @@ class databaseConnection {
                                     <td style='width: 24px' class=' dt-center'>{$seller}</td>
                                     <td style='width: 35px' class=' dt-center'><span class='badge badge-primary'>Déjà feed</span></td>
                                     <td style='width: 120px' class=' dt-center'>
+                                        <a style='color: #333;{$display_refund}' class='btn btn-warning'>Demande de refund ({$time_left} min restantes)</a>
                                         <a href='http://localhost/as_bretzel/action/update/check_lux_card.php?numeros={$result['numeros']}&expm={$expm}&expy={$expy}&cvv={$result['cvv']}&card={$result['id_card']}' style='color: #333;{$display_check}' class='btn btn-warning'>Check ({$time_left} min restantes)</a>
                                         <a href='?id={$result['id_card']}#modale_view_purchased_card' style='color: #fff;' class='btn btn-info'>Voir</a>
                                         <a href='../action/delete/delete_purchased_card.php?order={$result['id_order']}' style='color: #fff;' class='btn btn-danger'>Supprimer</a>
@@ -1634,6 +1679,40 @@ class databaseConnection {
         }
     }
 
+    // Fonction pour récupérer la liste des wallets de deposit coté admin
+    public function getAvailableWallet(){
+        $this->utf8();
+        $query = $this->pdo->prepare("SELECT * from wallets where owner_id = 0 LIMIT 1;                               
+                                    ");
+
+        $query->execute();
+
+        $result = $query->fetch();
+
+        return $result;
+    }
+
+    
+    // Fonction pour confirmer une carte pour la partie admin
+    public function setDepositWallet($hash, $id_wallet, $owner_id){
+        try {
+            $this->utf8();
+            $query = $this->pdo->prepare("UPDATE wallets
+                                          SET wallet = :hash,
+                                          owner_id = :owner_id
+                                          WHERE id=:id_wallet
+                                        ");
+            $query->execute(array(':hash' => $hash,
+                                  ':owner_id' => $owner_id,
+                                  ':id_wallet' => $id_wallet
+                                 )
+                                );
+
+            return 1;
+            } catch (PDOException $e) {
+                return $e;
+        }       
+    }
 
 
     // Fonction pour confirmer une carte pour la partie admin
