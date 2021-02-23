@@ -164,7 +164,7 @@ class databaseConnection {
     public function getCountTotalWithdrawsPending()
     {
         $this->utf8();
-        $query = $this->pdo->prepare("SELECT count(*) FROM deposits WHERE status = 'Pending'");
+        $query = $this->pdo->prepare("SELECT count(*) FROM withdrawals WHERE status = 'Pending'");
         $query->execute();
         $result = $query->fetch();
         if ($result) {
@@ -174,12 +174,85 @@ class databaseConnection {
         }       
     }
 
+    public function getMyWithdrawals($id_user) {
+        $this->utf8();
+        $query = $this->pdo->prepare("SELECT withdrawals.date,
+                                      withdrawals.amount,
+                                      withdrawals.wallet,
+                                      withdrawals.status 
+                                      FROM withdrawals 
+                                      ORDER BY status
+                                      ");
+        $query->execute();
+        $results = $query->fetchAll();
+        $html = "";
+
+        if($results){
+            foreach($results as $result){
+                if(strtoupper($result['status']) == "PENDING"){
+                    $badge_status = "warning";
+                } else if (strtoupper($result['status']) == "PAID"){
+                    $badge_status = "success    ";
+                }
+
+                $html .= "
+                <tr role='row' class='odd'>
+                <td class='dt-center sorting_1' tabindex='0'>{$result['date']}</td>
+                <td class='dt-center'>{$result['amount']}</td>
+                <td class='dt-center'>{$result['wallet']}</td>
+                <td class='dt-center'>{$result['status']}</td>
+                </tr>";
+            }
+            return $html;
+        } else {
+            return "Aucun retrait effectué.";
+        }
+    }
+
+
+    public function getMyDeposits($id_user) {
+        $this->utf8();
+        $query = $this->pdo->prepare("SELECT deposits.date,
+                                      deposits.amount,
+                                      deposits.amount_crypto,
+                                      deposits.status,
+                                      deposits.wallet
+                                      FROM deposits 
+                                      ORDER BY status
+                                      ");
+        $query->execute();
+        $results = $query->fetchAll();
+        $html = "";
+
+        if($results){
+            foreach($results as $result){
+                if(strtoupper($result['status']) == "PENDING"){
+                    $badge_status = "warning";
+                } else if (strtoupper($result['status']) == "PAID"){
+                    $badge_status = "success    ";
+                }
+
+                $html .= "
+                <tr role='row' class='odd'>
+                <td style='width: 250px' class='dt-center sorting_1' tabindex='0'>{$result['date']}</td>
+                <td style='width: 45px' class='dt-center'>{$result['amount']}€</td>
+                <td class='dt-center'>{$result['amount_crypto']}</td>
+                <td class='dt-center'>{$result['wallet']}</td>
+                <td class='dt-center'>{$result['status']}</td>
+                </tr>";
+            }
+            return $html;
+        } else {
+            return "Aucun dépôt effectué.";
+        }
+    }
+
         
     // Fonction pour compter le nombre de deposits en cours pour la partie admin
     public function getCountTotalDepositsPending()
     {
         $this->utf8();
-        $query = $this->pdo->prepare("SELECT count(*) FROM withdrawals WHERE status = 'Pending'");
+        $query = $this->pdo->prepare("SELECT count(*) FROM deposits WHERE status = 'Pending'");
         $query->execute();
         $result = $query->fetch();
         if ($result) {
@@ -499,6 +572,27 @@ class databaseConnection {
             $query->execute(array(':id_user' => $id_user, 
                                   ':amount' => $amount,
                                   ':wallet' => $wallet
+                                  )
+                                );
+            return 1;
+            } catch (PDOException $e) {
+                return $e;
+        }    
+    }
+
+
+    // Fonction pour l'ajout d'un withdraw
+    public function addDeposit($id_user, $amount, $wallet, $amount_crypto){
+        try {
+            $this->utf8();
+            $query = $this->pdo->prepare("INSERT INTO deposits 
+                                          (id_user, amount, wallet, amount_crypto) 
+                                          VALUES (:id_user, :amount, :wallet, :amount_crypto)
+                                        ");
+            $query->execute(array(':id_user' => $id_user, 
+                                  ':amount' => $amount,
+                                  ':wallet' => $wallet,
+                                  ':amount_crypto' => $amount_crypto
                                   )
                                 );
             return 1;
@@ -1201,7 +1295,15 @@ class databaseConnection {
     // Fonction pour récupérer tous les withdraws
     public function getAllWithdrawals(){
         $this->utf8();
-        $query = $this->pdo->prepare("SELECT * from withdrawals                                 
+        $query = $this->pdo->prepare("SELECT withdrawals.date,
+                                      withdrawals.date,
+                                      withdrawals.id as id_withdraw,
+                                      withdrawals.amount,
+                                      withdrawals.wallet,
+                                      users.username
+                                      FROM withdrawals  
+                                      JOIN users
+                                      ON withdrawals.id_user = users.id                               
                                     ");
 
         $query->execute();
@@ -1214,12 +1316,11 @@ class databaseConnection {
         $html .= "<table class='table dataTable no-footer dtr-inline collapsed' id='BoobsTable' role='grid' aria-describedby='BoobsTable_info' style='width: 100%;'>
             <thead>
                 <tr role='row'>
-                    <th class='sorting_disabled dt-center' rowspan='1' colspan='1' style='width: 174px;'>Date</th>
+                    <th style='width: 124px;' class='sorting_disabled dt-center' rowspan='1' colspan='1' style='width: 174px;'>Date</th>
                     <th class='sorting_disabled dt-center' rowspan='1' colspan='1' style='width: 44px;'>User</th>
-                    <th class='sorting_disabled dt-center' rowspan='1' colspan='1' style='width: 47px;'>Amount (BTC)</th>
-                    <th class='sorting_disabled dt-center' rowspan='1' colspan='1' style='width: 29px;'>Amount ($)</th>
+                    <th class='sorting_disabled dt-center' rowspan='1' colspan='1' style='width: 29px;'>Montant (€)</th>
                     <th class='sorting_disabled dt-center' rowspan='1' colspan='1' style='width: 82px;'>Wallet</th>
-                    <th class='sorting_disabled dt-center' rowspan='1' colspan='1' style='width: 82px;'>Status</th>
+                    <th class='sorting_disabled dt-center' rowspan='1' colspan='1' style='width: 82px;'>Action</th>
                 </tr>
             </thead>
             
@@ -1229,12 +1330,13 @@ class databaseConnection {
         if ($results) {
             foreach($results as $result){                
                 $html .= "<tr role='row' class='odd'>
-                            <td class=' dt-center'><small><small></small></small></td>
-                            <td class=' dt-center'>4111</td>
-                            <td class=' dt-center'></td>
-                            <td class=' dt-center'></td>
-                            <td class=' dt-center' style=''><br><span class='badge badge-success'>2 </span> <span class='badge badge-danger'>2</span></td>
-                            <td class=' dt-center' style=''><br><span class='badge badge-success'>2 </span> <span class='badge badge-danger'>2</span></td>
+                            <td style='width: 224px;' class=' dt-center'>{$result['date']}</td>
+                            <td class=' dt-center'>{$result['username']}</td>
+                            <td class=' dt-center'>{$result['amount']}</td>
+                            <td class=' dt-center' style=''>{$result['wallet']}</td>
+                            <td class=' dt-center' style=''>
+                                <a href='http://localhost/as_bretzel/action/update/pay_withdraw.php?id={$result['id_withdraw']}' class='badge badge-success'>Payer</a>
+                            </td>
                             </tr>";
             }
         } 
@@ -1505,6 +1607,31 @@ class databaseConnection {
         }         
     }
     
+    // Fonction pour récupérer les infos d'un user
+    public function getDepositWallet($owner_id){
+        $this->utf8();
+        $query = $this->pdo->prepare("SELECT wallet FROM wallets WHERE owner_id=:owner_id");
+        $query->execute(array(':owner_id' => $owner_id));
+        $result = $query->fetch();
+        if ($result) {
+            return $result;
+        } else {
+            return 0;
+        }         
+    }
+    
+    // Fonction pour récupérer les infos d'un user
+    public function getDepositInfos($id_user){
+        $this->utf8();
+        $query = $this->pdo->prepare("SELECT * FROM deposits WHERE id_user=:id_user");
+        $query->execute(array(':id_user' => $id_user));
+        $result = $query->fetch();
+        if ($result) {
+            return $result;
+        } else {
+            return 0;
+        }         
+    }
 
     // Fonction pour l'update de la balance apres un achat ou un dépot
     public function updateBalance($username, $balance){
@@ -1750,6 +1877,24 @@ class databaseConnection {
                 return $e;
         }       
     }
+
+    // Fonction pour confirmer une carte pour la partie admin
+    public function payWithdraw($id_withdraw){
+        try {
+            $this->utf8();
+            $query = $this->pdo->prepare("UPDATE withdrawals
+                                          SET status = 'Payé'
+                                          WHERE id=:id_withdraw
+                                        ");
+            $query->execute(array(':id_withdraw' => $id_withdraw
+                                 )
+                                );
+            return 1;
+            } catch (PDOException $e) {
+                return $e;
+        }       
+    }
+
 
     // Fonction pour indiquer qu'une carte a validé le check luxchecker
     public function checkCard($id_card){

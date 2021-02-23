@@ -65,8 +65,7 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <h4 class="card-title">All my informations</h4>
-                            <h6 class="card-subtitle">You can can edit your profile or change your password, can also view all you deposit/withdraw, and all your items purchased/selled. </h6>
+                            <h4 class="card-title">Mon compte</h4>
                                  
                              
                             <div class="row"> 
@@ -74,8 +73,8 @@
                                 <div class="col-md-4">
                                     <form action="../action/update/update_password.php" method="POST" class="card">
                                         <div class="card-body">
-                                            <h4 class="card-title">Personal Information</h4>
-                                            <h6 class="card-subtitle">You can update your informations here</h6>
+                                            <h4 class="card-title">Informations personnelles</h4>
+                                            <h6 class="card-subtitle">Vous pouvez mettre à jour vos informations ici.</h6>
 
                                              
                                             <div class="form-group">
@@ -94,7 +93,7 @@
                                             <?php if(isset($_GET['error']) && $_GET['error'] == 'wrong') {?>
 
                                             <div style="font-weight: bold; text-align: center;" class="alert alert-danger">
-                                                Current password is wrong.
+                                                Mauvais password.
                                             </div>
 
                                             <?php } ?>
@@ -102,7 +101,7 @@
                                             <?php if(isset($_GET['error']) && $_GET['error'] == 'confirm') {?>
 
                                             <div style="font-weight: bold; text-align: center;" class="alert alert-danger">
-                                                Passwords don't match.
+                                                Les deux passwords ne sont pas identiques.
                                             </div>
 
                                             <?php } ?>
@@ -111,7 +110,7 @@
                                             <?php if(isset($_GET['password']) && $_GET['password'] == 'success') {?>
 
                                             <div style="font-weight: bold; text-align: center;" class="alert alert-success">
-                                                Password has been updated successfully.
+                                                Le password a bien été mis à jour.
                                             </div>
 
                                             <?php } ?>
@@ -122,7 +121,7 @@
                                             </div>
                                     </form>
                                     <form action="../action/update/update_withdraw_wallet.php" method="POST">
-                                            <label>Your Bitcoin Address</label>
+                                            <label>Votre wallet de retrait BTC</label>
                                             <div class="form-group">
                                                 <input type="text" class="form-control" name="btc_wallet" placeholder="BTC Address" value="<?php echo $current_wallet ?>">
                                                 <i class="form-group__bar"></i>
@@ -130,7 +129,7 @@
                                             <?php if(isset($_GET['wallet']) && $_GET['wallet'] == 'success') {?>
 
                                             <div style="font-weight: bold; text-align: center;" class="alert alert-success">
-                                                Wallet has been updated successfully.
+                                                Votre wallet de retrait a bien été mis à jour.
                                             </div>
 
                                             <?php } ?>
@@ -150,45 +149,63 @@
                                             <div class="tab-container">
                                                 <ul class="nav nav-tabs" role="tablist">
                                                     <li class="nav-item">
-                                                        <a class="nav-link active" data-toggle="tab" href="#depos" role="tab" aria-expanded="true">My BTC Deposites</a>
+                                                        <a class="nav-link active" data-toggle="tab" href="#depos" role="tab" aria-expanded="true">Mes dépôts BTC</a>
                                                     </li>
                                                 </ul>
 
                                                 <div class="tab-content">
                                                     <div class="tab-pane fade active show" id="depos" role="tabpanel" aria-expanded="true">
                                                         <br>
-                                                        <h6 class="card-subtitle">You can find here all your deposites</h6>
-                                                        <div id="depoTable_wrapper" class="dataTables_wrapper no-footer"><div style="display: none" class="dataTables_length" id="depoTable_length"><label>Show <select name="depoTable_length" aria-controls="depoTable" class=""><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div><div id="depoTable_processing" class="dataTables_processing" style="display: none;">Processing...</div><table class="table dataTable no-footer dtr-inline collapsed" id="depoTable" role="grid" aria-describedby="depoTable_info" style="width: 968px;">
+                                                        <h6 class="card-subtitle">Mes dépots</h6>
+                                                        <div id="depoTable_wrapper" class="dataTables_wrapper no-footer">
+                                                        <div style="display: none" class="dataTables_length" id="depoTable_length">
+                                                        <label>Show 
+                                                        <select name="depoTable_length" aria-controls="depoTable" class="">
+                                                        <option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div><div id="depoTable_processing" class="dataTables_processing" style="display: none;">Processing...</div>
+                                                        
+                                                        <table class="table dataTable no-footer dtr-inline collapsed" id="depoTable" role="grid" aria-describedby="depoTable_info" style="width: 100%;">
                                                             <thead>
                                                                 <tr role="row"><th class="dt-center sorting_asc" tabindex="0" aria-controls="depoTable" rowspan="1" colspan="1" style="width: 137px;" aria-label="
                                                                         Date
                                                                     : activate to sort column descending" aria-sort="ascending">
                                                                         Date
-                                                                    </th><th class="dt-center sorting" tabindex="0" aria-controls="depoTable" rowspan="1" colspan="1" style="width: 244px;" aria-label="
+                                                                    </th><th style='width: 45px' class="dt-center sorting" tabindex="0" aria-controls="depoTable" rowspan="1" colspan="1" style="width: 244px;" aria-label="
                                                                         Ammount $
                                                                     : activate to sort column ascending">
-                                                                        Ammount $
+                                                                        Montant
                                                                     </th><th class="dt-center sorting" tabindex="0" aria-controls="depoTable" rowspan="1" colspan="1" style="width: 288px" aria-label="
                                                                         Ammount BTC
                                                                     : activate to sort column ascending">
-                                                                        Ammount BTC
-                                                                    </th><th class="dt-center sorting" tabindex="0" aria-controls="depoTable" rowspan="1" colspan="1" style="width: 143px;" aria-label="
+                                                                        Montant BTC
+                                                                    </th>
+                                                                    
+                                                                    <th class="dt-center sorting" tabindex="0" aria-controls="depoTable" rowspan="1" colspan="1" style="width: 143px;" aria-label="
+                                                                        Stats
+                                                                    : activate to sort column ascending">
+                                                                        Wallet
+                                                                    </th>
+                                                                    
+                                                                    <th class="dt-center sorting" tabindex="0" aria-controls="depoTable" rowspan="1" colspan="1" style="width: 143px;" aria-label="
                                                                         Stats
                                                                     : activate to sort column ascending">
                                                                         Status
-                                                                    </th></tr>
+                                                                    </th>
+                                                                    
+                                                                    </tr>
                                                             </thead>
-                                                        <tbody><tr role="row" class="odd">
-                                                        <td class="dt-center sorting_1" tabindex="0"></td>
-                                                        <td class=" dt-center"></td><td class=" dt-center" style="display: none;"></td>
-                                                        <td class=" dt-center"></td>
-                                                        </tr></tbody></table><div class="dataTables_info" id="depoTable_info" role="status" aria-live="polite">Showing 1 to 1 of 1 entries</div><div style='display: none' class="dataTables_paginate paging_simple_numbers" id="depoTable_paginate"><a class="paginate_button previous disabled" aria-controls="depoTable" data-dt-idx="0" tabindex="0" id="depoTable_previous">Previous</a><span><a class="paginate_button current" aria-controls="depoTable" data-dt-idx="1" tabindex="0">1</a></span><a class="paginate_button next disabled" aria-controls="depoTable" data-dt-idx="2" tabindex="0" id="depoTable_next">Next</a></div></div>                               
+                                                        <tbody>
+                                                            <?php echo $pdo->getMyDeposits($_SESSION['user']) ?>
+                                                        </tbody>
+                                                    </table>
+                                                    
+                                                    <div style='display: none' class="dataTables_info" id="depoTable_info" role="status" aria-live="polite">Showing 1 to 1 of 1 entries</div><div style='display: none' class="dataTables_paginate paging_simple_numbers" id="depoTable_paginate"><a class="paginate_button previous disabled" aria-controls="depoTable" data-dt-idx="0" tabindex="0" id="depoTable_previous">Previous</a><span><a class="paginate_button current" aria-controls="depoTable" data-dt-idx="1" tabindex="0">1</a></span><a class="paginate_button next disabled" aria-controls="depoTable" data-dt-idx="2" tabindex="0" id="depoTable_next">Next</a></div></div>                               
 
                                                     </div>
                                                     <div class="tab-pane fade" id="depospm" role="tabpanel" aria-expanded="false">
                                                         <br>
                                                         <h6 class="card-subtitle">You can find here all your deposites with PerfectMoney</h6>
-                                                        <div id="depoTablePm_wrapper" class="dataTables_wrapper no-footer"><div style="display: none" class="dataTables_length" id="depoTablePm_length"><label>Show <select name="depoTablePm_length" aria-controls="depoTablePm" class=""><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div><div id="depoTablePm_processing" class="dataTables_processing" style="display: none;">Processing...</div><table class="table dataTable no-footer dtr-inline" id="depoTablePm" style="width: 100%;" role="grid" aria-describedby="depoTablePm_info">
+                                                        <div id="depoTablePm_wrapper" class="dataTables_wrapper no-footer"><div style="display: none" class="dataTables_length" id="depoTablePm_length"><label>Show <select name="depoTablePm_length" aria-controls="depoTablePm" class=""><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div><div id="depoTablePm_processing" class="dataTables_processing" style="display: none;">Processing...</div>
+                                                        <table class="table dataTable no-footer dtr-inline" id="depoTablePm" style="width: 100%;" role="grid" aria-describedby="depoTablePm_info">
                                                             <thead>
                                                                 <tr role="row"><th class="dt-center sorting_asc" tabindex="0" aria-controls="depoTablePm" rowspan="1" colspan="1" style="width: 0px;" aria-label="
                                                                         Date
@@ -209,7 +226,7 @@
                                                     
                                                     <div class="tab-pane fade" id="withdraw" role="tabpanel" aria-expanded="false">
                                                         <br>
-                                                        <h6 class="card-subtitle">You can find here all your withdraws</h6>
+                                                        <h6 class="card-subtitle">Mes withdraws</h6>
                                                         <div id="withTable_wrapper" class="dataTables_wrapper no-footer"><div style="display: none" class="dataTables_length" id="withTable_length"><label>Show <select name="withTable_length" aria-controls="withTable" class=""><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div><div id="withTable_processing" class="dataTables_processing" style="display: none;">Processing...</div><table class="table dataTable no-footer dtr-inline" id="withTable" style="width: 100%;" role="grid" aria-describedby="withTable_info">
                                                             <thead>
                                                                 <tr role="row"><th class="dt-center sorting_asc" tabindex="0" aria-controls="withTable" rowspan="1" colspan="1" style="width: 0px;" aria-label="
@@ -240,15 +257,16 @@
                                             <div class="tab-container">
                                                 <ul class="nav nav-tabs" role="tablist">
                                                     <li class="nav-item">
-                                                        <a class="nav-link active" data-toggle="tab" href="#depos" role="tab" aria-expanded="true">My BTC Withdrawals</a>
+                                                        <a class="nav-link active" data-toggle="tab" href="#depos" role="tab" aria-expanded="true">Retraits BTC</a>
                                                     </li>
                                                 </ul>
 
                                                 <div class="tab-content">
                                                     <div class="tab-pane fade active show" id="depos" role="tabpanel" aria-expanded="true">
                                                         <br>
-                                                        <h6 class="card-subtitle">You can find here all your Withdrawals</h6>
-                                                        <div id="depoTable_wrapper" class="dataTables_wrapper no-footer"><div style="display: none" class="dataTables_length" id="depoTable_length"><label>Show <select name="depoTable_length" aria-controls="depoTable" class=""><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div><div id="depoTable_processing" class="dataTables_processing" style="display: none;">Processing...</div><table class="table dataTable no-footer dtr-inline collapsed" id="depoTable" role="grid" aria-describedby="depoTable_info" style="width: 968px;">
+                                                        <h6 class="card-subtitle">Mes retraits</h6>
+                                                        <div id="depoTable_wrapper" class="dataTables_wrapper no-footer"><div style="display: none" class="dataTables_length" id="depoTable_length"><label>Show <select name="depoTable_length" aria-controls="depoTable" class=""><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div><div id="depoTable_processing" class="dataTables_processing" style="display: none;">Processing...</div>
+                                                        <table class="table dataTable no-footer dtr-inline collapsed" id="depoTable" role="grid" aria-describedby="depoTable_info" style="width: 100%;">
                                                             <thead>
                                                                 <tr role="row"><th class="dt-center sorting_asc" tabindex="0" aria-controls="depoTable" rowspan="1" colspan="1" style="width: 137px;" aria-label="
                                                                         Date
@@ -257,21 +275,21 @@
                                                                     </th><th class="dt-center sorting" tabindex="0" aria-controls="depoTable" rowspan="1" colspan="1" style="width: 244px;" aria-label="
                                                                         Ammount $
                                                                     : activate to sort column ascending">
-                                                                        Ammount $
+                                                                        Ammount €
                                                                     </th><th class="dt-center sorting" tabindex="0" aria-controls="depoTable" rowspan="1" colspan="1" style="width: 288px;" aria-label="
                                                                         Ammount BTC
                                                                     : activate to sort column ascending">
-                                                                        Ammount BTC
+                                                                        Wallet
                                                                     </th><th class="dt-center sorting" tabindex="0" aria-controls="depoTable" rowspan="1" colspan="1" style="width: 143px;" aria-label="
                                                                         Stats
                                                                     : activate to sort column ascending">
                                                                         Status
                                                                     </th></tr>
                                                             </thead>
-                                                        <tbody><tr role="row" class="odd"><td class="dt-center sorting_1" tabindex="0"></td>
-                                                        <td class=" dt-center"></td>
-                                                        <td class=" dt-center"></td>
-                                                        <td class=" dt-center"></td></tr></tbody></table><div style="display: none" class="dataTables_info" id="depoTable_info" role="status" aria-live="polite">Showing 1 to 1 of 1 entries</div><div style='display: none' class="dataTables_paginate paging_simple_numbers" id="depoTable_paginate"><a class="paginate_button previous disabled" aria-controls="depoTable" data-dt-idx="0" tabindex="0" id="depoTable_previous">Previous</a><span><a class="paginate_button current" aria-controls="depoTable" data-dt-idx="1" tabindex="0">1</a></span><a class="paginate_button next disabled" aria-controls="depoTable" data-dt-idx="2" tabindex="0" id="depoTable_next">Next</a></div></div>                               
+                                                        <tbody>
+                                                            <?php echo $pdo->getMyWithdrawals($_SESSION['user']) ?>
+                                                        </tbody>
+                                                        </table><div style="display: none" class="dataTables_info" id="depoTable_info" role="status" aria-live="polite">Showing 1 to 1 of 1 entries</div><div style='display: none' class="dataTables_paginate paging_simple_numbers" id="depoTable_paginate"><a class="paginate_button previous disabled" aria-controls="depoTable" data-dt-idx="0" tabindex="0" id="depoTable_previous">Previous</a><span><a class="paginate_button current" aria-controls="depoTable" data-dt-idx="1" tabindex="0">1</a></span><a class="paginate_button next disabled" aria-controls="depoTable" data-dt-idx="2" tabindex="0" id="depoTable_next">Next</a></div></div>                               
 
                                                     </div>
                                                     <div class="tab-pane fade" id="depospm" role="tabpanel" aria-expanded="false">

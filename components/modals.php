@@ -16,6 +16,17 @@
         </div>
     <?php } ?>
 
+    <?php if(isset($_GET['deposit']) && $_GET['deposit'] == 'success') { ?>
+        <div style="text-align: center; font-weight: bold;" class="alert alert-info">
+            Merci d'envoyer exactement le montant <br><span style="color: #333;"><?php echo $pdo->getDepositInfos($_SESSION['user'])['amount_crypto'] ?> BTC</span><br>à l'adresse BTC ci dessous : 
+            <br>
+            <span style="color: #333;"><?php echo $pdo->getDepositWallet($_SESSION['user'])['wallet'] ?></span>
+            <br>
+            Le suivi du deposit est disponible dans vos paramètres. Il apparaitra dans votre balance au bout de 
+            2 confirmations sur la blockchain.
+        </div>
+    <?php } ?>
+
     <form class="form" id="boobsform" method="POST" action="http://localhost/as_bretzel/action/add/add_deposit.php"><div class="row" style="display:flex; justify-content: center; align-items: center;">
     <div class="col-md-6 col-centered"><div class="form-group"><center><label for="bitcoin"><img src="http://localhost/as_bretzel/img/btc.png" style="width:50px;"></label><br>
     </center></div></div></div><div class="form-group" style="display: flex; flex-direction: column; align-items: center">

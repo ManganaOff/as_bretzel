@@ -2,10 +2,6 @@
     session_start();
     ini_set('display_errors', 'on');
 
-    if(strtoupper($_SESSION['type']) != "ADMIN"){
-        header("location: http://localhost/as_bretzel/index.php");
-    }
-
     include("../../db/pdo.php");
 
     $pdo = databaseConnection::getInstance();
@@ -15,9 +11,20 @@
 
     $amount = $_POST["amount"];
 
-    if(!is_numeric($amount) || strlen($amount) <= 0 ){
+    $is_pending_deposit = $pdo->is_deposit_pending($_SESSION['id']);
+
+    if(!is_numeric($amount) || strlen($amount) <= 0 || $amount <= 0){
         header("Location: ../../index.php?amount=false#modal_deposit");
     } else {
+        $jsnsrc = "https://blockchain.info/ticker";
+        $json = file_get_contents($jsnsrc);
+        $json = json_decode($json);
+        $eur_btc = $json->EUR->last;
+
+        $amount_crypto = number_format($amount / $eur_btc, 8);
+
+        $pdo->addDeposit($_SESSION['user'], $_POST['amount'], $wallet, $amount_crypto);
+
         header("Location: ../../index.php?deposit=success#modal_deposit");
     }
 ?>
