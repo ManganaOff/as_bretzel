@@ -489,6 +489,25 @@ class databaseConnection {
     }
 
 
+    // Fonction pour l'ajout d'un withdraw
+    public function sendWithdrawRequest($id_user, $amount, $wallet){
+        try {
+            $this->utf8();
+            $query = $this->pdo->prepare("INSERT INTO withdrawals (id_user, amount, wallet) 
+                                          VALUES (:id_user, :amount, :wallet)
+                                        ");
+            $query->execute(array(':id_user' => $id_user, 
+                                  ':amount' => $amount,
+                                  ':wallet' => $wallet
+                                  )
+                                );
+            return 1;
+            } catch (PDOException $e) {
+                return $e;
+        }    
+    }
+
+
     // Fonction pour l'ajout d'un wallet
     public function addWallet($wallet){
         try {

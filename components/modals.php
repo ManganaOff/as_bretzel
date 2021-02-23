@@ -9,12 +9,21 @@
     <h5 class="modal-title pull-left">Deposit</h5>
     </div>
     <div class="modal-body">
-    <form class="form" id="boobsform"><div class="row" style="display:flex; justify-content: center; align-items: center;">
+    
+    <?php if(isset($_GET['amount']) && $_GET['amount'] == 'false') { ?>
+        <div style="text-align: center; font-weight: bold;" class="alert alert-danger">
+            Veuillez entrez un montant correct pour le déposit.
+        </div>
+    <?php } ?>
+
+    <form class="form" id="boobsform" method="POST" action="http://localhost/as_bretzel/action/add/add_deposit.php"><div class="row" style="display:flex; justify-content: center; align-items: center;">
     <div class="col-md-6 col-centered"><div class="form-group"><center><label for="bitcoin"><img src="http://localhost/as_bretzel/img/btc.png" style="width:50px;"></label><br>
     </center></div></div></div><div class="form-group" style="display: flex; flex-direction: column; align-items: center">
         <label class="label">Combien voulez vous déposer ? (Dépôt minimum = €10)</label>
-        <label class="label">Merci de rentrer un montant en euros (Exemple 10)</label><input type="text" id="deposit_ammount" class="form-control text-center" name="deposit_ammount"><i class="form-group__bar"></i></div><div class="d-flex justify-content-center">
-    <a type="reset" class="btn btn-light" style="margin-right:15px;" data-dismiss="modal" href="#">Retour</a><button type="button" class="btn btn-light " onclick="initdepo()" id="deposbtn">Déposer maintenant</button></div></form></div>
+        <label class="label">Merci de rentrer un montant en euros (Exemple 10)</label>
+        <input type="text" id="deposit_ammount" class="form-control text-center" name="amount"><i class="form-group__bar"></i></div><div class="d-flex justify-content-center">
+    <a type="reset" class="btn btn-light" style="margin-right:15px;" data-dismiss="modal" href="#">Retour</a>
+    <button type="submit" class="btn btn-light " onclick="initdepo()" id="deposbtn">Déposer maintenant</button></div></form></div>
 
     </div>
     </div>
@@ -31,6 +40,23 @@
     <h5 class="modal-title pull-left">Retrait</h5>
     </div>
     <div class="modal-body">
+
+    <?php if(isset($_GET['amount']) && $_GET['amount'] == "nowallet"){ ?>
+        <div style="text-align: center; font-weight: bold;" class="alert alert-danger">Vous devez configurer un wallet de retrait pour pouvoir effectuer un retrait.</div>
+    <?php } ?>
+
+    <?php if(isset($_GET['amount']) && $_GET['amount'] == "mustbenumeric"){ ?>
+        <div style="text-align: center; font-weight: bold;" class="alert alert-danger">Veuillez entrer un montant correct pour votre retrait.</div>
+    <?php } ?>
+
+    <?php if(isset($_GET['amount']) && $_GET['amount'] == "lowbalance"){ ?>
+        <div style="text-align: center; font-weight: bold;" class="alert alert-danger">Le montant de votre balance est insuffisant pour effectuer ce retrait.</div>
+    <?php } ?>
+    
+    <?php if(isset($_GET['withdraw']) && $_GET['withdraw'] == "success"){ ?>
+        <div style="text-align: center; font-weight: bold;" class="alert alert-success">Votre ordre de retrait a bien été effectué et sera traité dans les meilleurs délais. Vous pouvez suivre l'avancement depuis votre compte.</div>
+    <?php } ?>
+
     <form class="form" id="boobsform" method="POST" action="http://localhost/as_bretzel/action/add/add_withdraw.php">
     <div class="row" style="display:flex; justify-content: center; align-items: center;">
     <div class="col-md-6 col-centered"><div class="form-group"><center><label for="bitcoin"><img src="http://localhost/as_bretzel/img/btc.png" style="width:50px;"></label><br>
