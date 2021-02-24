@@ -6,7 +6,7 @@
     }
     
     $path = $_SERVER['DOCUMENT_ROOT'];
-    $path .= " /db/pdo.php";
+    $path .= "/db/pdo.php";
 
 
     include_once($path);
