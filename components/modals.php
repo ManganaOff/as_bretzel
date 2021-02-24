@@ -15,6 +15,12 @@
             Veuillez entrez un montant correct pour le déposit.
         </div>
     <?php } ?>
+    
+    <?php if(isset($_GET['amount']) && $_GET['amount'] == 'pending') { ?>
+        <div style="text-align: center; font-weight: bold;" class="alert alert-danger">
+            Veuillez finaliser ou annuler le dépot en cours avant d'en initier un nouveau.
+        </div>
+    <?php } ?>
 
     <?php if(isset($_GET['deposit']) && $_GET['deposit'] == 'success') { ?>
         <div style="text-align: center; font-weight: bold;" class="alert alert-info">
@@ -292,8 +298,12 @@ date">••/••</div></div></div><div class="jp-card-back"><div class="jp-ca
                                 <div class="alert alert-success">La carte a été checkée avec succes et est bien valide.</div>
                                 <?php } ?>
 
-                                <?php if(isset($_GET['check']) && $_GET['check'] == "wrong"){ ?>
+                                <?php if(isset($_GET['check']) && $_GET['check'] == "false"){ ?>
                                 <div class="alert alert-danger">La carte n'est pas valide. Vous pouvez demander un refund pendant le délai imparti.</div>
+                                <?php } ?>
+                                
+                                <?php if(isset($_GET['check']) && $_GET['check'] == "refund"){ ?>
+                                <div class="alert alert-success">Votre demande de refund a bien été envoyée et sera traitée dans les meilleurs délais.</div>
                                 <?php } ?>
 
                                 <div id="BoobsTableView_wrapper" class="dataTables_wrapper no-footer">

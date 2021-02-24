@@ -1,6 +1,16 @@
 <?php
-    //$current_hour = date('H:i:s');
-    //var_dump(diff_time($current_hour , '21:58:12'));
+    $json = file_get_contents('https://blockchain.info/rawaddr/1DnfNxUasQKVcdqBK9Z8tWG1yQbFBQ2S3h');
+    $obj = json_decode($json);
+    //var_dump($obj->total_received / 100000000);
+    $transac_height = $obj->txs[1]->block_height;
+
+    $json_current = file_get_contents('https://blockchain.info/q/getblockcount');
+
+    $current_height = json_decode($json_current);
+
+    $confirmations = $current_height - $transac_height;
+
+    $is_twice_confirmed = $confirmations >= 2 && $confirmations < 5000;
 
     //svar_dump(explode(" ", "2021-02-19 22:10:04")[1]);
     //die();

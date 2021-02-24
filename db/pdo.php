@@ -89,6 +89,20 @@ class databaseConnection {
     }
 
 
+    public function is_deposit_pending($id_user)
+    {
+        $this->utf8();
+        $query = $this->pdo->prepare("SELECT id FROM deposits WHERE id_user = :id_user");
+        $query->execute(array(':id_user' => $id_user));
+        $result = $query->fetch();
+        if ($result) {
+            return true;
+        } else {
+            return false;
+        }       
+    }
+
+
     // Fonction pour récupérer le name d'un vendeur avec son user id
     public function getSellerName($id){
         $this->utf8();
@@ -181,9 +195,10 @@ class databaseConnection {
                                       withdrawals.wallet,
                                       withdrawals.status 
                                       FROM withdrawals 
+                                      WHERE id_user = :id_user
                                       ORDER BY status
                                       ");
-        $query->execute();
+        $query->execute(array(':id_user' => $id_user));
         $results = $query->fetchAll();
         $html = "";
 
@@ -191,8 +206,8 @@ class databaseConnection {
             foreach($results as $result){
                 if(strtoupper($result['status']) == "PENDING"){
                     $badge_status = "warning";
-                } else if (strtoupper($result['status']) == "PAID"){
-                    $badge_status = "success    ";
+                } else if (strtolower($result['status']) == "payé"){
+                    $badge_status = "success";
                 }
 
                 $html .= "
@@ -200,7 +215,7 @@ class databaseConnection {
                 <td class='dt-center sorting_1' tabindex='0'>{$result['date']}</td>
                 <td class='dt-center'>{$result['amount']}</td>
                 <td class='dt-center'>{$result['wallet']}</td>
-                <td class='dt-center'>{$result['status']}</td>
+                <td class='dt-center'><span class='badge badge-{$badge_status}'>{$result['status']}</span></td>
                 </tr>";
             }
             return $html;
@@ -218,9 +233,10 @@ class databaseConnection {
                                       deposits.status,
                                       deposits.wallet
                                       FROM deposits 
+                                      WHERE id_user = :id_user
                                       ORDER BY status
                                       ");
-        $query->execute();
+        $query->execute(array(':id_user' => $id_user));
         $results = $query->fetchAll();
         $html = "";
 
@@ -228,7 +244,7 @@ class databaseConnection {
             foreach($results as $result){
                 if(strtoupper($result['status']) == "PENDING"){
                     $badge_status = "warning";
-                } else if (strtoupper($result['status']) == "PAID"){
+                } else if (strtolower($result['status']) == "payé"){
                     $badge_status = "success    ";
                 }
 
@@ -238,7 +254,7 @@ class databaseConnection {
                 <td style='width: 45px' class='dt-center'>{$result['amount']}€</td>
                 <td class='dt-center'>{$result['amount_crypto']}</td>
                 <td class='dt-center'>{$result['wallet']}</td>
-                <td class='dt-center'>{$result['status']}</td>
+                <td class='dt-center'><span class='badge badge-{$badge_status}'>{$result['status']}</span></td>
                 </tr>";
             }
             return $html;
@@ -555,6 +571,25 @@ class databaseConnection {
                                   ':contenu' => $contenu
                                   )
                                 );
+            return 1;
+            } catch (PDOException $e) {
+                return $e;
+        }    
+    }
+
+
+    public function askRefund($user, $seller, $price, $card){
+        try {
+            $this->utf8();
+            $query = $this->pdo->prepare("INSERT INTO refunds (user, seller, price_card) 
+                                          VALUES (:user, :seller, :price_card)
+                                        ");
+            $query->execute(array(':user' => $user, 
+                                  ':seller' => $seller,
+                                  ':price_card' => $price
+                                  )
+                                );
+            $this->refundCard($card);
             return 1;
             } catch (PDOException $e) {
                 return $e;
@@ -1113,6 +1148,8 @@ class databaseConnection {
     // Fonction pour récupérer mes cartes achetées
     public function getMyPurchasedCards($id_user){
         $this->utf8();
+        
+        $asker = $this->getUserInfos($id_user)['username'];
 
         $query = $this->pdo->prepare("SELECT cards.id as id_card,
                                         cards.banque,
@@ -1121,6 +1158,7 @@ class databaseConnection {
                                         cards.exp,
                                         cards.cvv,
                                         cards.checked,
+                                        cards.refunded,
                                         orders.id as id_order,
                                         orders.date,
                                         orders.type_product,
@@ -1190,8 +1228,14 @@ class databaseConnection {
                     
                     if ($result['checked'] == "2"){
                         $time_left = 10 - explode(":", $delai)[1];
+                        
                         $display_check = "display:none;";
-                        $display_refund = "";
+
+                        if($result['refunded'] == "0"){
+                            $display_refund = "";
+                        } else {
+                            $display_refund = "display: none";
+                        }
                     }
                 } else {
                     $display_check = "display:none";
@@ -1209,7 +1253,7 @@ class databaseConnection {
                                         <a href='../action/add/bad_review.php?seller={$result['seller']}&type_product={$result['type_product']}&id_product={$result['id_card']}&id_order={$result['id_order']}' style='font-weight: bold;' class='btn btn-danger'>-</a>
                                     </td>
                                     <td style='width: 24px' class=' dt-center'>
-                                        <a style='color: #333;{$display_refund}' class='btn btn-warning'>Demande de refund ({$time_left} min restantes)</a>
+                                        <a href='http://localhost/as_bretzel/action/add/ask_refund.php?user={$asker}&seller={$seller}&card={$result['id_card']}' style='color: #333;{$display_refund}' class='btn btn-warning'>Demande de refund ({$time_left} min restantes)</a>
                                         <a href='http://localhost/as_bretzel/action/update/check_lux_card.php?numeros={$result['numeros']}&expm={$expm}&expy={$expy}&cvv={$result['cvv']}&card={$result['id_card']}' style='color: #333;{$display_check}' class='btn btn-warning'>Check ({$time_left} min restantes)</a>
                                         <a href='?id={$result['id_card']}#modale_view_purchased_card' style='color: #fff;' class='btn btn-info'>Voir</a>
                                         <a href='../action/delete/delete_purchased_card.php?order={$result['id_order']}' style='color: #fff;' class='btn btn-danger'>Supprimer</a>
@@ -1222,7 +1266,7 @@ class databaseConnection {
                                     <td style='width: 24px' class=' dt-center'>{$seller}</td>
                                     <td style='width: 35px' class=' dt-center'><span class='badge badge-primary'>Déjà feed</span></td>
                                     <td style='width: 120px' class=' dt-center'>
-                                        <a style='color: #333;{$display_refund}' class='btn btn-warning'>Demande de refund ({$time_left} min restantes)</a>
+                                        <a href='http://localhost/as_bretzel/action/add/ask_refund.php?user={$asker}&seller={$seller}&card={$result['id_card']}' style='color: #333;{$display_refund}' class='btn btn-warning'>Demande de refund ({$time_left} min restantes)</a>
                                         <a href='http://localhost/as_bretzel/action/update/check_lux_card.php?numeros={$result['numeros']}&expm={$expm}&expy={$expy}&cvv={$result['cvv']}&card={$result['id_card']}' style='color: #333;{$display_check}' class='btn btn-warning'>Check ({$time_left} min restantes)</a>
                                         <a href='?id={$result['id_card']}#modale_view_purchased_card' style='color: #fff;' class='btn btn-info'>Voir</a>
                                         <a href='../action/delete/delete_purchased_card.php?order={$result['id_order']}' style='color: #fff;' class='btn btn-danger'>Supprimer</a>
@@ -1244,7 +1288,18 @@ class databaseConnection {
     // Fonction pour récupérer tous les deposits
     public function getAllDeposits(){
         $this->utf8();
-        $query = $this->pdo->prepare("SELECT * from deposits                                 
+        $query = $this->pdo->prepare("SELECT deposits.date,
+                                      deposits.date,
+                                      deposits.id as id_withdraw,
+                                      deposits.amount,
+                                      deposits.amount_crypto,
+                                      deposits.wallet,
+                                      deposits.status,
+                                      users.username
+                                      FROM deposits  
+                                      JOIN users
+                                      ON deposits.id_user = users.id 
+                                      WHERE status != 'Payé'                              
                                     ");
 
         $query->execute();
@@ -1257,10 +1312,10 @@ class databaseConnection {
         $html .= "<table class='table dataTable no-footer dtr-inline collapsed' id='BoobsTable' role='grid' aria-describedby='BoobsTable_info' style='width: 100%;'>
             <thead>
                 <tr role='row'>
-                    <th class='sorting_disabled dt-center' rowspan='1' colspan='1' style='width: 174px;'>Date</th>
+                    <th style='width: 124px;' class='sorting_disabled dt-center' rowspan='1' colspan='1' style='width: 174px;'>Date</th>
                     <th class='sorting_disabled dt-center' rowspan='1' colspan='1' style='width: 44px;'>User</th>
-                    <th class='sorting_disabled dt-center' rowspan='1' colspan='1' style='width: 47px;'>Amount (BTC)</th>
-                    <th class='sorting_disabled dt-center' rowspan='1' colspan='1' style='width: 29px;'>Amount ($)</th>
+                    <th class='sorting_disabled dt-center' rowspan='1' colspan='1' style='width: 29px;'>Montant (€)</th>
+                    <th class='sorting_disabled dt-center' rowspan='1' colspan='1' style='width: 29px;'>Montant (BTC)</th>
                     <th class='sorting_disabled dt-center' rowspan='1' colspan='1' style='width: 82px;'>Wallet</th>
                     <th class='sorting_disabled dt-center' rowspan='1' colspan='1' style='width: 82px;'>Status</th>
                 </tr>
@@ -1270,14 +1325,26 @@ class databaseConnection {
     
 
         if ($results) {
-            foreach($results as $result){                
+            foreach($results as $result){  
+                if(strtoupper($result['status']) == "PENDING"){
+                    $badge_status = "warning";
+                }
+
+                if(strtoupper($result['status']) == "RECU"){
+                    $badge_status = "info";
+                }
+
+                if(strtolower($result['status']) == 'payé'){
+                    $badge_status = "success";
+                }
+                
                 $html .= "<tr role='row' class='odd'>
-                            <td class=' dt-center'><small><small></small></small></td>
-                            <td class=' dt-center'>4111</td>
-                            <td class=' dt-center'></td>
-                            <td class=' dt-center'></td>
-                            <td class=' dt-center' style=''><br><span class='badge badge-success'>2 </span> <span class='badge badge-danger'>2</span></td>
-                            <td class=' dt-center' style=''><br><span class='badge badge-success'>2 </span> <span class='badge badge-danger'>2</span></td>
+                            <td style='width: 224px;' class=' dt-center'>{$result['date']}</td>
+                            <td class=' dt-center'>{$result['username']}</td>
+                            <td class=' dt-center'>{$result['amount']}</td>
+                            <td class=' dt-center'>{$result['amount_crypto']}</td>
+                            <td class=' dt-center' style=''>{$result['wallet']}</td>
+                            <td class=' dt-center' style=''><span class='badge badge-{$badge_status}'>{$result['status']}</span></td>
                             </tr>";
             }
         } 
@@ -1285,11 +1352,7 @@ class databaseConnection {
         $html .= "</tbody>";
         $html .= "</table>";
 
-        if($results){
-            return $html;
-        } else {
-            return "<br>No deposits.";
-        }
+        return $html;
     }    
 
     // Fonction pour récupérer tous les withdraws
@@ -1303,7 +1366,8 @@ class databaseConnection {
                                       users.username
                                       FROM withdrawals  
                                       JOIN users
-                                      ON withdrawals.id_user = users.id                               
+                                      ON withdrawals.id_user = users.id 
+                                      WHERE status = 'Pending'                              
                                     ");
 
         $query->execute();
@@ -1606,6 +1670,8 @@ class databaseConnection {
             return 0;
         }         
     }
+
+    
     
     // Fonction pour récupérer les infos d'un user
     public function getDepositWallet($owner_id){
@@ -1761,6 +1827,57 @@ class databaseConnection {
         }
     }
 
+    public function getRefundList(){
+        $this->utf8();
+        $query = $this->pdo->prepare("SELECT * from refunds;
+                                    ");
+
+        $query->execute();
+
+        $results = $query->fetchAll();
+
+        $html = "";
+
+
+        $html .= "<table class='table dataTable no-footer dtr-inline collapsed' id='BoobsTable' role='grid' aria-describedby='BoobsTable_info' style='width: 100%;'>
+            <thead>
+                <tr role='row'>
+                    <th class='sorting_disabled dt-center' rowspan='1' colspan='1' style='width: 100px;'>Client</th>
+                    <th class='sorting_disabled dt-center' rowspan='1' colspan='1' style='width: 47px;'>Vendeur</th>
+                    <th data-priority='1' class='sorting_disabled dt-center' rowspan='1' colspan='1' style='width: 20px;'>Prix</th>
+                    <th data-priority='1' class='sorting_disabled dt-center' rowspan='1' colspan='1' style='width: 20px;'>Action</th>
+                </tr>
+
+            </thead>
+            
+        <tbody>";
+    
+
+        if ($results) {
+            foreach($results as $result){
+                $html .= "<tr role='row' class='odd'>
+                            <td style='width: 360px' class=' dt-center'>{$result['user']}</td>
+                            <td class=' dt-center'>{$result['seller']}</td>
+                            <td class=' dt-center'>{$result['price_card']}</td>
+                            <td class=' dt-center' style='display: flex; justify-content: center'>
+                                <a href='../action/update/accept_refund.php?refund={$result['id']}'  id='del' type='button' class='btn btn-success' data-id='8'>Refund</a>
+                                <a href='../action/update/decline_refund.php?refund={$result['id']}'  id='del' type='button' class='btn btn-danger' data-id='8'>Refuser</a>
+                            </td>
+                            </tr>";
+            
+            }
+        } 
+
+        $html .= "</tbody>";
+        $html .= "</table>";
+
+        if($results){
+            return $html;
+        } else {
+            return "There are no news available.";
+        }
+    }
+
 
     // Fonction pour récupérer la liste des wallets de deposit coté admin
     public function getAdminWallets(){
@@ -1877,6 +1994,59 @@ class databaseConnection {
                 return $e;
         }       
     }
+
+    // Fonction pour confirmer une carte pour la partie admin
+    public function refundCard($id_card){
+        try {
+            $this->utf8();
+            $query = $this->pdo->prepare("UPDATE cards
+                                          SET refunded = 1
+                                          WHERE id=:id_card
+                                        ");
+            $query->execute(array(':id_card' => $id_card
+                                 )
+                                );
+            return 1;
+            } catch (PDOException $e) {
+                return $e;
+        }       
+    }
+
+    // Fonction pour confirmer une carte pour la partie admin
+    public function acceptRefund($id_card){
+        try {
+            $this->utf8();
+            $query = $this->pdo->prepare("UPDATE cards
+                                            SET refunded = 2
+                                            WHERE id=:id_card
+                                        ");
+            $query->execute(array(':id_card' => $id_card
+                                    )
+                                );
+            return 1;
+            } catch (PDOException $e) {
+                return $e;
+        }       
+    }
+
+    // Fonction pour confirmer une carte pour la partie admin
+    public function declineRefund($id_card){
+        try {
+            $this->utf8();
+            $query = $this->pdo->prepare("UPDATE cards
+                                            SET refunded = 3
+                                            WHERE id=:id_card
+                                        ");
+            $query->execute(array(':id_card' => $id_card
+                                    )
+                                );
+            return 1;
+            } catch (PDOException $e) {
+                return $e;
+        }       
+    }
+    
+    
 
     // Fonction pour confirmer une carte pour la partie admin
     public function payWithdraw($id_withdraw){
@@ -2114,6 +2284,26 @@ class databaseConnection {
         }
     }
     
+
+    public function checkDeposit($id_user, $wallet){
+        $json = file_get_contents('https://blockchain.info/rawaddr/' . $wallet);
+        $obj = json_decode($json);
+        
+        $total_received = $obj->total_received / 100000000;
+
+        $transac_height = $obj->txs[1]->block_height;
+    
+        $json_current = file_get_contents('https://blockchain.info/q/getblockcount');
+    
+        $current_height = json_decode($json_current);
+    
+        $confirmations = $current_height - $transac_height;
+    
+        $is_twice_confirmed = $confirmations >= 2 && $confirmations < 5000;
+        
+        return array($total_received, $confirmations, $is_twice_confirmed);
+    }
+
     public function diff_time($t1 , $t2){
         //Heures au format (hh:mm:ss) la plus grande puis le plus petite         
         $tab=explode(":", $t1); 
