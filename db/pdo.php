@@ -10,10 +10,10 @@ class databaseConnection {
     private $user = "root";
 
     // Décommente la ligne ci-dessous pour le dev
-    private $password = "Azerty75*";
+    //private $password = "**********";
 
     // Décommente la ligne ci dessous pour la prod
-   //private $password = "Bretzel*password93";
+    private $password = "Bretzel*password93";
 
     private $dbName = "autoshop";
 

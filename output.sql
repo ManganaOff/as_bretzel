@@ -43,8 +43,9 @@ CREATE TABLE `cards` (
   `confirmed` int(11) DEFAULT '0',
   `declined` int(11) DEFAULT '0',
   `checked` int(11) DEFAULT '0',
+  `refunded` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -53,7 +54,6 @@ CREATE TABLE `cards` (
 
 LOCK TABLES `cards` WRITE;
 /*!40000 ALTER TABLE `cards` DISABLE KEYS */;
-INSERT INTO `cards` VALUES (23,'Benoit KERNEUR',NULL,'5137 7117 **** ****','12/23','280','','95 rue de la guirande','79230','AIFFRES',NULL,'20','0778475459\n',5,1,NULL,NULL,1,0,0),(24,'Benoit KERNEUR',NULL,'6137 7117 **** ****','12/23','280','','95 rue de la guirande','79230','AIFFRES',NULL,'20','0778475459\n',5,1,NULL,NULL,1,0,0),(25,'Benoit KERNEUR',NULL,'7137 7117 **** ****','12/23','280','','95 rue de la guirande','79230','AIFFRES',NULL,'20','0778475459\n',5,0,NULL,NULL,1,0,0),(26,'Benoit KERNEUR',NULL,'8137 7117 **** ****','12/23','280','','95 rue de la guirande','79230','AIFFRES',NULL,'20','0778475459\n',5,1,NULL,NULL,1,0,0),(27,'Benoit KERNEUR',NULL,'5137 7117 **** ****','12/23','280','','95 rue de la guirande','79230','AIFFRES',NULL,'20','0778475459\n',6,0,NULL,NULL,1,0,0),(28,'Benoit KERNEUR',NULL,'6137 7117 **** ****','12/23','280','','95 rue de la guirande','79230','AIFFRES',NULL,'20','0778475459\n',6,0,NULL,NULL,1,0,0),(29,'Benoit KERNEUR',NULL,'7137 7117 **** ****','12/23','280','','95 rue de la guirande','79230','AIFFRES',NULL,'20','0778475459\n',6,1,NULL,NULL,1,0,0),(30,'Benoit KERNEUR',NULL,'8137 7117 **** ****','12/23','280','','95 rue de la guirande','79230','AIFFRES',NULL,'20','0778475459\n',6,0,NULL,NULL,1,0,0),(31,'Benoit KERNEUR',NULL,'5137 7117 **** ****','12/23','280','','95 rue de la guirande','79230','AIFFRES',NULL,'20','0778475459\n',6,0,NULL,NULL,0,0,0),(32,'Benoit KERNEUR',NULL,'6137 7117 **** ****','12/23','280','','95 rue de la guirande','79230','AIFFRES',NULL,'20','0778475459\n',6,0,NULL,NULL,0,0,0),(33,'Benoit KERNEUR',NULL,'7137 7117 **** ****','12/23','280','','95 rue de la guirande','79230','AIFFRES',NULL,'20','0778475459\n',6,0,NULL,NULL,0,0,0),(34,'Benoit KERNEUR',NULL,'8137 7117 **** ****','12/23','280','','95 rue de la guirande','79230','AIFFRES',NULL,'20','0778475459\n',6,0,NULL,NULL,0,0,0),(35,'Benoit KERNEUR',NULL,'5137 7117 **** ****','12/23','280','','95 rue de la guirande','79230','AIFFRES',NULL,'20','0778475459\n',5,0,NULL,NULL,0,0,0),(36,'Benoit KERNEUR',NULL,'6137 7117 **** ****','12/23','280','','95 rue de la guirande','79230','AIFFRES',NULL,'20','0778475459\n',5,0,NULL,NULL,0,0,0),(37,'Benoit KERNEUR',NULL,'7137 7117 **** ****','12/23','280','','95 rue de la guirande','79230','AIFFRES',NULL,'20','0778475459\n',5,0,NULL,NULL,0,0,0),(38,'Benoit KERNEUR',NULL,'8137 7117 **** ****','12/23','280','','95 rue de la guirande','79230','AIFFRES',NULL,'20','0778475459\n',5,0,NULL,NULL,0,0,0),(39,'Benoit KERNEUR',NULL,'5137 7117 **** ****','12/23','280','','95 rue de la guirande','79230','AIFFRES',NULL,'20','0778475459\n',5,0,NULL,NULL,0,0,0),(40,'Benoit KERNEUR',NULL,'6137 7117 **** ****','12/23','280','','95 rue de la guirande','79230','AIFFRES',NULL,'30','0778475459\n',5,0,NULL,NULL,0,0,0),(41,'Benoit KERNEUR',NULL,'7137 7117 **** ****','12/23','280','','95 rue de la guirande','79230','AIFFRES',NULL,'40','0778475459\n',5,0,NULL,NULL,0,0,0),(42,'Benoit KERNEUR',NULL,'8137 7117 **** ****','12/23','280','','95 rue de la guirande','79230','AIFFRES',NULL,'50','0778475459\n',5,0,NULL,NULL,0,0,0);
 /*!40000 ALTER TABLE `cards` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -69,11 +69,11 @@ CREATE TABLE `deposits` (
   `id_user` int(11) DEFAULT NULL,
   `date` datetime DEFAULT CURRENT_TIMESTAMP,
   `amount` varchar(50) DEFAULT NULL,
-  `id_wallet` int(11) DEFAULT NULL,
+  `wallet` varchar(250) DEFAULT NULL,
   `amount_crypto` varchar(50) DEFAULT NULL,
   `status` varchar(30) DEFAULT 'Pending',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -98,7 +98,7 @@ CREATE TABLE `news` (
   `contenu` text,
   `date` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -126,7 +126,7 @@ CREATE TABLE `orders` (
   `hide` int(11) DEFAULT '0',
   `reviewed` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -136,6 +136,32 @@ CREATE TABLE `orders` (
 LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `refunds`
+--
+
+DROP TABLE IF EXISTS `refunds`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `refunds` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user` varchar(250) DEFAULT NULL,
+  `seller` varchar(250) DEFAULT NULL,
+  `price_card` varchar(250) DEFAULT NULL,
+  `status` varchar(150) DEFAULT 'Pending',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `refunds`
+--
+
+LOCK TABLES `refunds` WRITE;
+/*!40000 ALTER TABLE `refunds` DISABLE KEYS */;
+/*!40000 ALTER TABLE `refunds` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -259,7 +285,7 @@ CREATE TABLE `tickets` (
   `object` varchar(250) DEFAULT NULL,
   `date` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -285,7 +311,7 @@ CREATE TABLE `tickets_messages` (
   `date` datetime DEFAULT CURRENT_TIMESTAMP,
   `id_ticket` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -314,7 +340,7 @@ CREATE TABLE `users` (
   `balance` varchar(30) DEFAULT '0',
   `wallet` varchar(250) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -323,7 +349,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (5,'bretzel','21232f297a57a5a743894a0e4a801fc3','Admin',NULL,0,'500040',NULL);
+INSERT INTO `users` VALUES (5,'bretzel','21232f297a57a5a743894a0e4a801fc3','Admin',NULL,0,'500100','');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -340,7 +366,7 @@ CREATE TABLE `wallets` (
   `used` int(11) DEFAULT '0',
   `owner_id` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -364,11 +390,10 @@ CREATE TABLE `withdrawals` (
   `id_user` int(11) DEFAULT NULL,
   `date` datetime DEFAULT CURRENT_TIMESTAMP,
   `amount` varchar(50) DEFAULT NULL,
-  `id_wallet` int(11) DEFAULT NULL,
-  `amount_crypto` varchar(50) DEFAULT NULL,
+  `wallet` varchar(250) DEFAULT NULL,
   `status` varchar(30) DEFAULT 'Pending',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -389,4 +414,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-02-22 20:11:00
+-- Dump completed on 2021-02-24 11:02:25
