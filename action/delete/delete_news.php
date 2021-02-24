@@ -3,7 +3,7 @@
     ini_set('display_errors', 'on');
 
     if(strtoupper($_SESSION['type']) != "ADMIN"){
-        header("location: http://localhost/as_bretzel/index.php");
+        header("location: http://144.202.124.151/index.php");
     }
 
     include("../../db/pdo.php");
@@ -12,5 +12,5 @@
 
     $delete = $pdo->deleteNews($_GET["news"]);
 
-    header("location: http://localhost/as_bretzel/admin/news.php");
+    header("location: http://144.202.124.151/admin/news.php");
 ?>

@@ -1,16 +1,4 @@
 <?php
-    $json = file_get_contents('https://blockchain.info/rawaddr/1DnfNxUasQKVcdqBK9Z8tWG1yQbFBQ2S3h');
-    $obj = json_decode($json);
-    //var_dump($obj->total_received / 100000000);
-    $transac_height = $obj->txs[1]->block_height;
-
-    $json_current = file_get_contents('https://blockchain.info/q/getblockcount');
-
-    $current_height = json_decode($json_current);
-
-    $confirmations = $current_height - $transac_height;
-
-    $is_twice_confirmed = $confirmations >= 2 && $confirmations < 5000;
 
     //svar_dump(explode(" ", "2021-02-19 22:10:04")[1]);
     //die();
@@ -20,7 +8,7 @@
 //	ini_set('display_errors', 'on');
 
     if(!$_SESSION['logged']){
-        header("Location: http://localhost/as_bretzel/main/login.php");
+        header("Location: http://144.202.124.151/main/login.php");
     }
     
 //    $path = $_SERVER['DOCUMENT_ROOT'];
@@ -121,7 +109,7 @@
 
                                 <div class="listview listview--hover">
                                                                         <a class="listview__item" href="http://localhost/store/index/1141">
-                                        <img src="http://localhost/as_bretzel/img/logo.png" class="listview__img" alt="">
+                                        <img src="http://144.202.124.151/img/logo.png" class="listview__img" alt="">
 
                                         <div class="listview__content">
                                            <div class="listview__heading text-truncate">Seller1141</div>

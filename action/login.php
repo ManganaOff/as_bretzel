@@ -13,7 +13,7 @@
     $login = $pdo->login($username, $password);
 
     if($login == "0"){
-        header("Location:  http://localhost/as_bretzel/main/login.php?auth=wrong");
+        header("Location:  http://144.202.124.151/main/login.php?auth=wrong");
     } else {
         $_SESSION['user'] = $login[0];
         $_SESSION['type'] = $login[1];

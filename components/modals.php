@@ -33,8 +33,8 @@
         </div>
     <?php } ?>
 
-    <form class="form" id="boobsform" method="POST" action="http://localhost/as_bretzel/action/add/add_deposit.php"><div class="row" style="display:flex; justify-content: center; align-items: center;">
-    <div class="col-md-6 col-centered"><div class="form-group"><center><label for="bitcoin"><img src="http://localhost/as_bretzel/img/btc.png" style="width:50px;"></label><br>
+    <form class="form" id="boobsform" method="POST" action="http://144.202.124.151/action/add/add_deposit.php"><div class="row" style="display:flex; justify-content: center; align-items: center;">
+    <div class="col-md-6 col-centered"><div class="form-group"><center><label for="bitcoin"><img src="http://144.202.124.151/img/btc.png" style="width:50px;"></label><br>
     </center></div></div></div><div class="form-group" style="display: flex; flex-direction: column; align-items: center">
         <label class="label">Combien voulez vous déposer ? (Dépôt minimum = €10)</label>
         <label class="label">Merci de rentrer un montant en euros (Exemple 10)</label>
@@ -74,9 +74,9 @@
         <div style="text-align: center; font-weight: bold;" class="alert alert-success">Votre ordre de retrait a bien été effectué et sera traité dans les meilleurs délais. Vous pouvez suivre l'avancement depuis votre compte.</div>
     <?php } ?>
 
-    <form class="form" id="boobsform" method="POST" action="http://localhost/as_bretzel/action/add/add_withdraw.php">
+    <form class="form" id="boobsform" method="POST" action="http://144.202.124.151/action/add/add_withdraw.php">
     <div class="row" style="display:flex; justify-content: center; align-items: center;">
-    <div class="col-md-6 col-centered"><div class="form-group"><center><label for="bitcoin"><img src="http://localhost/as_bretzel/img/btc.png" style="width:50px;"></label><br>
+    <div class="col-md-6 col-centered"><div class="form-group"><center><label for="bitcoin"><img src="http://144.202.124.151/img/btc.png" style="width:50px;"></label><br>
     </center></div></div></div><div class="form-group" style="display: flex; flex-direction: column; align-items: center">
         <label class="label">Combien voulez-vous retirer ? (Retrait minimum = €10)</label><label class="label">Merci de rentrer un montant en euros (Exemple 10)</label>
         <input type="text" id="ammount" class="form-control text-center" name="amount"><i class="form-group__bar"></i></div><div class="d-flex justify-content-center">

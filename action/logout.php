@@ -4,5 +4,5 @@
     
     ini_set('display_errors', 'on');
 
-    header("Location: http://localhost/as_bretzel/index.php");
+    header("Location: http://144.202.124.151/index.php");
 ?>

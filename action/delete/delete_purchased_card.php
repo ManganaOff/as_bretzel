@@ -8,5 +8,5 @@
 
     $confirm = $pdo->deletePurchasedCard($_GET["order"]);
 
-    header("location: http://localhost/as_bretzel/main/purchases.php#modale_my_purchases_cards");
+    header("location: http://144.202.124.151/main/purchases.php#modale_my_purchases_cards");
 ?>

@@ -2,7 +2,7 @@
     session_start();
 
     if(strtoupper($_SESSION['type']) != "ADMIN"){
-        header("location: http://localhost/as_bretzel/index.php");
+        header("location: http://144.202.124.151/index.php");
     }
 
     include("../../db/pdo.php");
@@ -13,10 +13,10 @@
 
     if(strtoupper($checkLux) == "NONE"){
         $pdo->checkCard($_GET['card']);
-        header("location: http://localhost/as_bretzel/main/purchases.php?check=true#modale_my_purchases_cards");
+        header("location: http://144.202.124.151/main/purchases.php?check=true#modale_my_purchases_cards");
     } else {
         $pdo->uncheckCard($_GET['card']);
-        header("location: http://localhost/as_bretzel/main/purchases.php?check=false#modale_my_purchases_cards");
+        header("location: http://144.202.124.151/main/purchases.php?check=false#modale_my_purchases_cards");
     }
 ?>
 

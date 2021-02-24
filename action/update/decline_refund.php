@@ -2,7 +2,7 @@
     session_start();
 
     if(strtoupper($_SESSION['type']) != "ADMIN"){
-        header("location: http://localhost/as_bretzel/index.php");
+        header("location: http://144.202.124.151/index.php");
     }
 
     include("../../db/pdo.php");
@@ -11,5 +11,5 @@
 
     $confirm = $pdo->declineRefund($_GET['id']);
 
-    header("location: http://localhost/as_bretzel/admin/reports.php");
+    header("location: http://144.202.124.151/admin/reports.php");
 ?>
