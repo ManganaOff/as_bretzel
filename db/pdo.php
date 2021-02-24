@@ -10,7 +10,7 @@ class databaseConnection {
     private $user = "root";
 
     // Décommente la ligne ci-dessous pour le dev
-    //private $password = "**********";
+    //private $password  = "*****";
 
     // Décommente la ligne ci dessous pour la prod
     private $password = "Bretzel*password93";

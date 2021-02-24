@@ -18,10 +18,7 @@
                     <li class="dropdown" data-toggle='modal_deposit' data-target='#'>
                         <a id="deposit" href="#modal_deposit">
                             <i class="fas fa-plus-circle"></i>  
-                        </a>                   
-                            <?php
-                                include_once "http://144.202.124.151/components/modals.php";
-                            ?>     
+                        </a>                      
                     </li>
 
                     <li class="dropdown">
@@ -81,3 +78,4 @@
 
                 </ul>
             </header>
+

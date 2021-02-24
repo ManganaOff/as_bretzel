@@ -286,40 +286,63 @@ date">••/••</div></div></div><div class="jp-card-back"><div class="jp-ca
 -->
 
 <div class="modal fade  show" id="modale_my_purchases_cards">
-	                <div class="modal-dialog modal-xl">
-	                    <div class="modal-content ">
-	                        <div class="modal-header">
-	                            <h5 class="modal-title pull-left"></h5>
-	                        </div>
-	                        <div class="modal-body">
-	                            <div class="card"><h4 class="card-title">Cards </h4>
-                                
-                                <?php if(isset($_GET['check']) && $_GET['check'] == "true"){ ?>
-                                <div class="alert alert-success">La carte a été checkée avec succes et est bien valide.</div>
-                                <?php } ?>
+	<div class="modal-dialog modal-xl">
+	    <div class="modal-content ">
+            <div class="modal-header">
+                <h5 class="modal-title pull-left"></h5>
+            </div>
 
-                                <?php if(isset($_GET['check']) && $_GET['check'] == "false"){ ?>
-                                <div class="alert alert-danger">La carte n'est pas valide. Vous pouvez demander un refund pendant le délai imparti.</div>
-                                <?php } ?>
+            <div class="modal-body">
+	            <div class="card">
+                    <h4 class="card-title">Cards </h4>
                                 
-                                <?php if(isset($_GET['check']) && $_GET['check'] == "refund"){ ?>
-                                <div class="alert alert-success">Votre demande de refund a bien été envoyée et sera traitée dans les meilleurs délais.</div>
-                                <?php } ?>
+                    <?php if(isset($_GET['check']) && $_GET['check'] == "true"){ ?>
+                    <div class="alert alert-success">La carte a été checkée avec succes et est bien valide.</div>
+                    <?php } ?>
 
-                                <div id="BoobsTableView_wrapper" class="dataTables_wrapper no-footer">
-                                <div style="display: none" class="dataTables_length" id="BoobsTableView_length"><label>Show <select style="display: none;" name="BoobsTableView_length" aria-controls="BoobsTableView" class=""><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div>
-                                        <?php echo $pdo->getMyPurchasedCards($_SESSION['user']); ?>
-			                            <div  style="display:none" class="dataTables_paginate paging_simple_numbers" id="BoobsTableView_paginate"><a class="paginate_button previous disabled" aria-controls="BoobsTableView" data-dt-idx="0" tabindex="0" id="BoobsTableView_previous">Previous</a><span><a class="paginate_button current" aria-controls="BoobsTableView" data-dt-idx="1" tabindex="0">1</a></span><a class="paginate_button next disabled" aria-controls="BoobsTableView" data-dt-idx="2" tabindex="0" id="BoobsTableView_next">Next</a></div></div></div><div class="d-flex justify-content-center">
-			                            <a type="reset" class="btn btn-light" style="margin-right:15px;" data-dismiss="modal" href="#">Close</a></div>	    	
-	                        </div>
-	                    </div>
-	                </div>
+                    <?php if(isset($_GET['check']) && $_GET['check'] == "false"){ ?>
+                    <div class="alert alert-danger">La carte n'est pas valide. Vous pouvez demander un refund pendant le délai imparti.</div>
+                    <?php } ?>
+                    
+                    <?php if(isset($_GET['check']) && $_GET['check'] == "refund"){ ?>
+                    <div class="alert alert-success">Votre demande de refund a bien été envoyée et sera traitée dans les meilleurs délais.</div>
+                    <?php } ?>
+
+                    <div id="BoobsTableView_wrapper" class="dataTables_wrapper no-footer">
+                        <div style="display: none" class="dataTables_length" id="BoobsTableView_length">
+                            <label>Show 
+                                <select style="display: none;" name="BoobsTableView_length" aria-controls="BoobsTableView" class="">
+                                    <option value="10">10</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                </select> entries
+                            </label>
+                        </div>
+                        
+                        <?php echo $pdo->getMyPurchasedCards($_SESSION['user']); ?>
+                        
+                        <div  style="display:none" class="dataTables_paginate paging_simple_numbers" id="BoobsTableView_paginate">
+                            <a class="paginate_button previous disabled" aria-controls="BoobsTableView" data-dt-idx="0" tabindex="0" id="BoobsTableView_previous">Previous</a>
+                            <span>
+                                <a class="paginate_button current" aria-controls="BoobsTableView" data-dt-idx="1" tabindex="0">1</a>
+                            </span>
+                            <a class="paginate_button next disabled" aria-controls="BoobsTableView" data-dt-idx="2" tabindex="0" id="BoobsTableView_next">Next</a>
+                        </div>
+                    </div>
                 </div>
                 
-
-
+                <div class="d-flex justify-content-center">
+                    <a type="reset" class="btn btn-light" style="margin-right:15px;" data-dismiss="modal" href="#">Close</a>
+                </div>	    	
+            </div>
+        </div>
+    </div>
+</div>
+                
 
 <?php 
+    die('lol');
     if(isset($_GET['user'])){
         $user = $_GET['user'];
         $username = $pdo->getUserInfos($_GET['user'])['username'];

@@ -1,6 +1,6 @@
 <?php
     session_start();
-    ini_set('display_errors', 'on');
+//    ini_set('display_errors', 'on');
 
 
     include("../../db/pdo.php");
