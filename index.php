@@ -1,5 +1,4 @@
 <?php
-
     //svar_dump(explode(" ", "2021-02-19 22:10:04")[1]);
     //die();
 
@@ -8,7 +7,7 @@
 //	ini_set('display_errors', 'on');
 
     if(!$_SESSION['logged']){
-        header("Location: http://144.202.124.151/main/login.php");
+        header("Location: http://localhost/as_bretzel/main/login.php");
     }
     
 //    $path = $_SERVER['DOCUMENT_ROOT'];
@@ -109,7 +108,7 @@
 
                                 <div class="listview listview--hover">
                                                                         <a class="listview__item" href="http://localhost/store/index/1141">
-                                        <img src="http://144.202.124.151/img/logo.png" class="listview__img" alt="">
+                                        <img src="http://localhost/as_bretzel/img/logo.png" class="listview__img" alt="">
 
                                         <div class="listview__content">
                                            <div class="listview__heading text-truncate">Seller1141</div>

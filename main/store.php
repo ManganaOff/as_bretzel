@@ -2,12 +2,12 @@
     session_start();
 
     if(!$_SESSION['logged']){
-        header("Location: http://144.202.124.151/main/login.php");
+        header("Location: http://localhost/as_bretzel/main/login.php");
     }
     
 
     $path = $_SERVER['DOCUMENT_ROOT'];
-    $path .= "/db/pdo.php";
+    $path .= "/as_bretzel/db/pdo.php";
 
 
     include_once($path);

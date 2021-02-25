@@ -2,7 +2,7 @@
     session_start();
 
     if(strtoupper($_SESSION['type']) != "ADMIN"){
-        header("location: http://144.202.124.151/index.php");
+        header("location: http://localhost/as_bretzel/index.php");
     }
 
     $titre = $_POST["titre"];
@@ -16,6 +16,6 @@
 
     $ask = $pdo->askRefund($_GET['user'], $_GET['seller'], $price, $_GET['card']);
 
-    header("Location: http://144.202.124.151/main/purchases.php?check=refund#modale_my_purchases_cards");
+    header("Location: http://localhost/as_bretzel/main/purchases.php?check=refund#modale_my_purchases_cards");
 
 ?>

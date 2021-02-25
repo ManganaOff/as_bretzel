@@ -2,7 +2,7 @@
     session_start();
 
     if(strtoupper($_SESSION['type']) != "ADMIN"){
-        header("location: http://144.202.124.151/index.php");
+        header("location: http://localhost/as_bretzel/index.php");
     }
 
     include("../../db/pdo.php");
@@ -11,5 +11,5 @@
 
     $pay = $pdo->payWithdraw($_GET['id']);
 
-    header("location: http://144.202.124.151/admin/withdrawals.php");
+    header("location: http://localhost/as_bretzel/admin/withdrawals.php");
 ?>

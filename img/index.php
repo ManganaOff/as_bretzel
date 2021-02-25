@@ -1,3 +1,3 @@
 <?php
-    header("Location: http://144.202.124.151");
+    header("Location: http://localhost/as_bretzel");
 ?>
