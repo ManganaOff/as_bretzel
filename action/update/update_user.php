@@ -2,7 +2,7 @@
     session_start();
 
     if(strtoupper($_SESSION['type']) != "ADMIN"){
-        header("location: http://localhost/as_bretzel/index.php");
+        header("location: http://144.202.124.151/index.php");
     } else {
 
         include("../../db/pdo.php");
@@ -19,6 +19,6 @@
 
         $update = $pdo->updateUser($type, $_POST['balance'], $_POST['username']);
 
-        header("location: http://localhost/as_bretzel/admin/users.php");   
+        header("location: http://144.202.124.151/admin/users.php");   
     }
 ?>

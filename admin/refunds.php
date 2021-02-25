@@ -2,11 +2,11 @@
     session_start();
 
     if(!$_SESSION['logged']){
-        header("Location: http://localhost/as_bretzel/main/login.php");
+        header("Location: http://144.202.124.151/main/login.php");
     }
     
     $path = $_SERVER['DOCUMENT_ROOT'];
-    $path .= "/as_bretzel/db/pdo.php";
+    $path .= "/db/pdo.php";
 
 
     include_once($path);
@@ -62,14 +62,7 @@
                     <div class="card">
                         <div class="toolbar toolbar--inner">
                             <div class="toolbar__nav">
-                                News
-                            </div>
-
-                            <div class="actions">
-                                <a href="#modale_add_news">
-                                  <i class="fas fa-plus add_card"></i>
-                                </a>
-                              </li>
+                                Refunds
                             </div>
                         </div>
                         <div class="card-body">

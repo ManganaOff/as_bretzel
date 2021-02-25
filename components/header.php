@@ -5,7 +5,7 @@
                 </div>
 
                 <div class="logo hidden-sm-down">
-                    <a href=" http://localhost/as_bretzel/"><img src="http://localhost/as_bretzel/img/logo.png" alt="Fakers Website" style="width:150px" /></a>
+                    <a href=" http://144.202.124.151/"><img src="http://144.202.124.151/img/logo.png" alt="Fakers Website" style="width:150px" /></a>
                 </div>               
 
                 <ul class="top-nav">  
@@ -33,7 +33,7 @@
                     </li>
                     -->
                     <li class="dropdown">
-                        <a href=" http://localhost/as_bretzel/main/purchases.php" data-toggle="dropdown" id="msgs">                        
+                        <a href=" http://144.202.124.151/main/purchases.php" data-toggle="dropdown" id="msgs">                        
                             <i class="fas fa-shopping-cart"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right dropdown-menu--block">
@@ -69,11 +69,11 @@
                     </li>
 
                     <li class="dropdown hidden-xs-down">
-                        <a href=" http://localhost/as_bretzel/main/account.php" data-toggle="dropdown"><i class="fas fa-user"></i></a>
+                        <a href=" http://144.202.124.151/main/account.php" data-toggle="dropdown"><i class="fas fa-user"></i></a>
                     </li>
 
                     <li>
-                        <a href="http://localhost/as_bretzel/action/logout.php" data-toggle="dropdown"><i class="fas fa-sign-out-alt"></i></a>
+                        <a href="http://144.202.124.151/action/logout.php" data-toggle="dropdown"><i class="fas fa-sign-out-alt"></i></a>
                     </li>
 
                 </ul>

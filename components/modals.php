@@ -33,8 +33,8 @@
         </div>
     <?php } ?>
 
-    <form class="form" id="boobsform" method="POST" action="http://localhost/as_bretzel/action/add/add_deposit.php"><div class="row" style="display:flex; justify-content: center; align-items: center;">
-    <div class="col-md-6 col-centered"><div class="form-group"><center><label for="bitcoin"><img src="http://localhost/as_bretzel/img/btc.png" style="width:50px;"></label><br>
+    <form class="form" id="boobsform" method="POST" action="http://144.202.124.151/action/add/add_deposit.php"><div class="row" style="display:flex; justify-content: center; align-items: center;">
+    <div class="col-md-6 col-centered"><div class="form-group"><center><label for="bitcoin"><img src="http://144.202.124.151/img/btc.png" style="width:50px;"></label><br>
     </center></div></div></div><div class="form-group" style="display: flex; flex-direction: column; align-items: center">
         <label class="label">Combien voulez vous déposer ? (Dépôt minimum = €10)</label>
         <label class="label">Merci de rentrer un montant en euros (Exemple 10)</label>
@@ -74,9 +74,9 @@
         <div style="text-align: center; font-weight: bold;" class="alert alert-success">Votre ordre de retrait a bien été effectué et sera traité dans les meilleurs délais. Vous pouvez suivre l'avancement depuis votre compte.</div>
     <?php } ?>
 
-    <form class="form" id="boobsform" method="POST" action="http://localhost/as_bretzel/action/add/add_withdraw.php">
+    <form class="form" id="boobsform" method="POST" action="http://144.202.124.151/action/add/add_withdraw.php">
     <div class="row" style="display:flex; justify-content: center; align-items: center;">
-    <div class="col-md-6 col-centered"><div class="form-group"><center><label for="bitcoin"><img src="http://localhost/as_bretzel/img/btc.png" style="width:50px;"></label><br>
+    <div class="col-md-6 col-centered"><div class="form-group"><center><label for="bitcoin"><img src="http://144.202.124.151/img/btc.png" style="width:50px;"></label><br>
     </center></div></div></div><div class="form-group" style="display: flex; flex-direction: column; align-items: center">
         <label class="label">Combien voulez-vous retirer ? (Retrait minimum = €10)</label><label class="label">Merci de rentrer un montant en euros (Exemple 10)</label>
         <input type="text" id="ammount" class="form-control text-center" name="amount"><i class="form-group__bar"></i></div><div class="d-flex justify-content-center">
@@ -449,21 +449,40 @@ date">••/••</div></div></div><div class="jp-card-back"><div class="jp-ca
 
 <?php 
     if(isset($_GET['id'])){
-        $card_infos = $pdo->getCardInfos($_GET['id']); 
 
-        $numeros = $card_infos['numeros'];
-        $exp = $card_infos['exp'];
-        $cvv = $card_infos['cvv'];
-        $city = $card_infos['city'];
-        $zip = $card_infos['zip'];
-        $holder = $card_infos['holder'];
-        $vbv = $card_infos['vbv'];
-        $supplement = $card_infos['supplement'];
-        $address = $card_infos['address'];
-        $price = $card_infos['price'];
-        $country = $card_infos['country'];
-        $banque = $card_infos['banque'];
-        $level = $card_infos['level'];
+        $is_card_buyer = $pdo->isCardBuyer($_SESSION['user'], $_GET['id']);
+
+        if($is_card_buyer){
+            $card_infos = $pdo->getCardInfos($_GET['id']); 
+
+            $numeros = $card_infos['numeros'];
+            $exp = $card_infos['exp'];
+            $cvv = $card_infos['cvv'];
+            $city = $card_infos['city'];
+            $zip = $card_infos['zip'];
+            $holder = $card_infos['holder'];
+            $vbv = $card_infos['vbv'];
+            $supplement = $card_infos['supplement'];
+            $address = $card_infos['address'];
+            $price = $card_infos['price'];
+            $country = $card_infos['country'];
+            $banque = $card_infos['banque'];
+            $level = $card_infos['level'];
+        } else {
+            $numeros = "*****";
+            $exp = "*****";
+            $cvv = "*****";
+            $city = "*****";
+            $zip = "*****";
+            $holder = "*****";
+            $vbv = "*****";
+            $supplement = "*****";
+            $address = "*****";
+            $price = "*****";
+            $country = "*****";
+            $banque = "*****";
+            $level = "*****";
+        }
     }
 ?>
 

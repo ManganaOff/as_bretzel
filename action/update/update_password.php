@@ -15,11 +15,11 @@
     if($true_old_pwd == md5($oldPwd)){
         if($newPwd == $confirmPwd){
             $update = $pdo->updatePassword($_SESSION['user'], md5($newPwd));
-            header("location: http://localhost/as_bretzel/main/account.php?password=success");   
+            header("location: http://144.202.124.151/main/account.php?password=success");   
         } else {
-            header("location: http://localhost/as_bretzel/main/account.php?error=confirm");   
+            header("location: http://144.202.124.151/main/account.php?error=confirm");   
         }
     } else {
-        header("location: http://localhost/as_bretzel/main/account.php?error=wrong");
+        header("location: http://144.202.124.151/main/account.php?error=wrong");
     }
 ?>

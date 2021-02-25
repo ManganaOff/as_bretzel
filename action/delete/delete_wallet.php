@@ -3,7 +3,7 @@
     ini_set('display_errors', 'on');
 
     if(strtoupper($_SESSION['type']) != "ADMIN"){
-        header("location: http://localhost/as_bretzel/index.php");
+        header("location: http://144.202.124.151/index.php");
     } else {
         include("../../db/pdo.php");
 
@@ -11,6 +11,6 @@
 
         $delete = $pdo->deleteWallet($_GET["wallet"]);
 
-        header("location: http://localhost/as_bretzel/admin/wallets.php");
+        header("location: http://144.202.124.151/admin/wallets.php");
     }
 ?>
