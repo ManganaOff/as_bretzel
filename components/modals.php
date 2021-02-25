@@ -87,6 +87,8 @@
     </div>
 </div>
 
+<?php if(strtoupper($_SESSION['type']) == "SELLER" ||  strtoupper($_SESSION['type']) == "ADMIN") { ?>
+
 <!-- 
     MODALE ADDING CARD
 -->
@@ -144,6 +146,8 @@ date">••/••</div></div></div><div class="jp-card-back"><div class="jp-ca
 	                    </div>
                     </div>
                     
+
+<?php } ?>
 
 <!-- 
     MODALE CREATING TICKET
@@ -226,6 +230,9 @@ date">••/••</div></div></div><div class="jp-card-back"><div class="jp-ca
 
 <?php } ?>
 
+
+<?php if(strtoupper($_SESSION['type']) == "SELLER" || strtoupper($_SESSION['type']) == "ADMIN"){ ?>
+
 <!-- 
     MODALE IMPORTING CCS
 -->
@@ -258,7 +265,7 @@ date">••/••</div></div></div><div class="jp-card-back"><div class="jp-ca
 </div>
 
 
-
+<?php } ?>
 
 <!--
     MODALE POUR PAGE BOUTIQUE VENDEUR

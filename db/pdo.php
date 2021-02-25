@@ -1102,7 +1102,6 @@ class databaseConnection {
                     <th class='sorting_disabled dt-center' rowspan='1' colspan='1' style='width: 29px;'>Zip</th>
                     <th class='sorting_disabled dt-center' rowspan='1' colspan='1' style='width: 174px;'>Country</th>
                     <th data-priority='1' class='sorting_disabled dt-center' rowspan='1' colspan='1' style='width: 110px;'>Price ($)</th>
-                    <th data-priority='1' class='sorting_disabled dt-center' rowspan='1' colspan='1' style='width: 53px;'>Buy</th>
                     <th class='sorting_disabled dt-center' rowspan='1' colspan='1' style='width: 104px;'>tools</th>
                 </tr>
 
@@ -1147,13 +1146,8 @@ class databaseConnection {
                                 <td class=' dt-center'>{$result['zip']}</td>
                                 <td class=' dt-center'><small>{$result['country']}<small></small></small></td>
                                 <td class=' dt-center'>{$result['price']}</td>
-                                <td class=' dt-center'>
-                                    <a href='http://localhost/as_bretzel/action/add/buy.php?id={$result['id_card']}' id='buythis' type='button' class='btn btn-light btn--icon' data-id='8'>
-                                        <i class='fas fa-shopping-cart'></i>
-                                    </a>
-                                </td>
-                                <td class=' dt-center' style=''><button id='edit' type='button' class='btn btn-light btn--icon' data-id='8' onclick='editboob('cards',8);'><i class='fas fa-edit'></i></button> 
-                                <button id='del' type='button' class='btn btn-light btn--icon' data-id='8'><i class='fas fa-trash'></i></button>
+                                <td class=' dt-center' style=''>
+                                    <a id='del' type='button' class='btn btn-light btn--icon' data-id='8'><i class='fas fa-trash'></i></a>
                                 </td>
                                 </tr>";
                 } else {

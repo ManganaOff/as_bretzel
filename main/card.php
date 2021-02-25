@@ -72,11 +72,12 @@
 
                             
                             <div class="actions">
+                            <?php if(strtoupper($_SESSION['type']) == "ADMIN" || strtoupper($_SESSION['type']) == "SELLER") { ?>
+
                                 <a href="#modale_import_cc" style="color: #fff; margin-right: 18px;">
                                   <i class="fas fa-file-upload"></i>
                                 </a>
                                 
-                                <?php if(strtoupper($_SESSION['type']) == "ADMIN" || strtoupper($_SESSION['type']) == "SELLER") { ?>
                                 <a href="#modale_add_card">
                                   <i class="fas fa-plus add_card"></i>
                                 </a>
