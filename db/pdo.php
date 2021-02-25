@@ -1001,7 +1001,7 @@ class databaseConnection {
                                         users.id as id_seller
                                         from cards join users
                                         ON cards.seller = users.id  
-                                        WHERE sold = 0 AND confirmed = 0;                                
+                                        WHERE sold = 0 AND confirmed = 0 AND checked = 0;                                
                                     ");
 
         $query->execute();
@@ -1019,6 +1019,7 @@ class databaseConnection {
                 if($obj->valid == "true"){
                     $this->autocompleteCard($result['id_card'], $obj->bank, $obj->level, $obj->country);
                     $this->confirmCard($result['id_card']);
+                    $this->checkCard($result['id_card']);
 		        }
             }
         } 
@@ -1779,6 +1780,63 @@ class databaseConnection {
                 return $e;
         }    
     }
+
+    // Fonction pour l'update d'une carte coté admin
+    public function updateCard($numeros, 
+                               $exp, 
+                               $cvv,
+                               $vbv,
+                               $holder,
+                               $address,
+                               $zip,
+                               $city,
+                               $country,
+                               $price,
+                               $infos,
+                               $banque,
+                               $level,
+                               $id_card){
+        try {
+            $this->utf8();
+            $query = $this->pdo->prepare("UPDATE cards 
+                                          SET
+                                          numeros = :numeros,
+                                          exp = :exp,
+                                          cvv = :cvv,
+                                          vbv = :vbv,
+                                          holder = :holder,
+                                          address = :address,
+                                          zip = :zip,
+                                          city = :city,
+                                          country = :country,
+                                          price = :price,
+                                          supplement = :infos,
+                                          banque = :banque,
+                                          level = :level                                     
+                                          WHERE id=:id_card
+                                        ");
+            $query->execute(array(':numeros' => $numeros, 
+                                  ':exp' => $exp,
+                                  ':cvv' => $cvv,
+                                  ':vbv' => $vbv,
+                                  ':holder' => $holder,
+                                  ':address' => $address,
+                                  ':zip' => $zip,
+                                  ':city' => $city,
+                                  ':country' => $country,
+                                  ':price'=> $price,
+                                  ':infos' => $infos,
+                                  ':banque' => $banque,
+                                  ':level' => $level,
+                                  ':id_card' => $id_card
+                                    )
+                                );
+            return 1;
+            } catch (PDOException $e) {
+                return $e;
+        }    
+    }
+    
     
     
     // Fonction pour la création d'un ticket

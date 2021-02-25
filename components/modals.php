@@ -466,6 +466,12 @@ date">••/••</div></div></div><div class="jp-card-back"><div class="jp-ca
     MODALE VIEW CARD ADMIN
 -->
 
+<?php
+    if(isset($_GET['id'])){
+        $id_card = $_GET['id'];
+    }
+?>
+
 
 <div class="modal fade  show" id="modale_view_card">
 	                <div class="modal-dialog ">
@@ -501,43 +507,44 @@ date">••/••</div></div></div><div class="jp-card-back"><div class="jp-ca
 date">••/••</div></div></div><div class="jp-card-back"><div class="jp-card-bar"></div><div class="jp-card-cvc jp-card-display">•••</div><div class="jp-card-shiny"></div></div></div></div></div><br>
                                 
 
-                                <form class="form" id="boobsform" action="../action/add/card.php" method="POST">
+                                <form class="form" action="../action/update/edit_card.php" method="POST">
                                 <div class="form-group"><label class="label">Card Number</label>
-                                <input type="text" id="cc" name="numbers" class="form-control text-center " value="<?php echo $numeros ?>" disabled><i class="form-group__bar"></i></div><div class="row"><div class="form-group col-md-6">
+                                <input type="text" id="cc" name="numbers" class="form-control text-center " value="<?php echo $numeros ?>"><i class="form-group__bar"></i></div><div class="row"><div class="form-group col-md-6">
                                 <label class="label">Expiry Date</label>
-                                <input type="text" id="exp" name="exp" class="form-control text-center" value="<?php echo $exp ?>" disabled><i class="form-group__bar"></i></div><div class="form-group col-md-6">
+                                <input type="text" id="exp" name="exp" class="form-control text-center" value="<?php echo $exp ?>"><i class="form-group__bar"></i></div><div class="form-group col-md-6">
                                 <label class="label">CVV</label>
-                                <input type="text" id="cvv" name="cvv" class="form-control text-center" value="<?php echo $cvv ?>" disabled><i class="form-group__bar"></i></div></div>
+                                <input type="text" id="cvv" name="cvv" class="form-control text-center" value="<?php echo $cvv ?>"><i class="form-group__bar"></i></div></div>
 
                                 <div class="row"><div class="form-group col-md-6"><label class="label">VBV</label>
-                                <input type="text" id="vbv" name="vbv" class="form-control text-center" value="<?php echo $vbv ?>" disabled><i class="form-group__bar"></i></div>
+                                <input type="text" id="vbv" name="vbv" class="form-control text-center" value="<?php echo $vbv ?>"><i class="form-group__bar"></i></div>
                                 <div class="form-group col-md-6"><label class="label">Card Holder</label>
-                                <input type="text" id="holder" name="holder" class="form-control text-center" value="<?php echo $holder ?>" disabled>
+                                <input type="text" id="holder" name="holder" class="form-control text-center" value="<?php echo $holder ?>">
                                 <i class="form-group__bar"></i></div></div>
 
                                 <div class="row"><div class="form-group col-md-6"><label class="label">Banque</label>
-                                <input type="text" id="vbv" name="vbv" class="form-control text-center" value="<?php echo $banque ?>" disabled><i class="form-group__bar"></i></div>
+                                <input type="text" id="vbv" name="banque" class="form-control text-center" value="<?php echo $banque ?>"><i class="form-group__bar"></i></div>
                                 <div class="form-group col-md-6"><label class="label">Level</label>
-                                <input type="text" id="holder" name="holder" class="form-control text-center" value="<?php echo $level ?>" disabled>
+                                <input type="text" id="holder" name="level" class="form-control text-center" value="<?php echo $level ?>">
                                 <i class="form-group__bar"></i></div></div>
 
                                 <div class="form-group"><label class="label">Billing Address</label>
-                                <input type="text" id="ccba" name="address" class="form-control text-center" value="<?php echo $address ?>" disabled><i class="form-group__bar"></i></div>
+                                <input type="text" id="ccba" name="address" class="form-control text-center" value="<?php echo $address ?>"><i class="form-group__bar"></i></div>
                                 
                                 <div class="row" style='display: flex; justify-content: center;'><div class="form-group col-md-4">
                                 <label class="label">Zip Code</label>
-                                <input type="text" id="cczip" name="zip" class="form-control text-center" value="<?php echo $zip ?>" disabled><i class="form-group__bar"></i></div>
+                                <input type="text" id="cczip" name="zip" class="form-control text-center" value="<?php echo $zip ?>"><i class="form-group__bar"></i></div>
                                 <div class="form-group  col-md-4"><label class="label">City</label>
-                                <input type="text" id="city" name="city" class="form-control text-center" value="<?php echo $city ?>" disabled><i class="form-group__bar"></i></div>
+                                <input type="text" id="city" name="city" class="form-control text-center" value="<?php echo $city ?>"><i class="form-group__bar"></i></div>
                                 <div class="form-group col-md-4" style="z-index:9999">
                                 <label class="label">Country</label>
-                                <input type="text" id="country" name="country" class="form-control text-center" value="<?php echo $country ?>" disabled><i class="form-group__bar"></i></div></div>
+                                <input type="text" id="country" name="country" class="form-control text-center" value="<?php echo $country ?>"><i class="form-group__bar"></i></div></div>
 				                <div class="form-group">
                                 <label class="label">Price in euro currency €</label>
-                                <input type="text" id="price" name="price" class="form-control text-center" value="$<?php echo $price ?>" disabled><i class="form-group__bar"></i></div><div class="form-group">
+                                <input type="text" id="price" name="price" class="form-control text-center" value="$<?php echo $price ?>"><i class="form-group__bar"></i></div><div class="form-group">
                                 <label class="label">Additional Info</label>
-                                <textarea id="ccadditional" name="infos" class="form-control text-center" disabled><?php echo $supplement ?></textarea><i class="form-group__bar"></i></div><input type="hidden" name="tboob" value="38825c3f9ba634e8a53df6978f7412d2"><div class="d-flex justify-content-center">
-                                <a type="reset" class="btn btn-light" style="margin-right:15px;" href="#">Close</a>
+                                <textarea id="ccadditional" name="infos" class="form-control text-center"><?php echo $supplement ?></textarea><i class="form-group__bar"></i></div><input type="hidden" name="tboob" value="38825c3f9ba634e8a53df6978f7412d2"><div class="d-flex justify-content-center">
+                                <input type="hidden" value="<?php echo $id_card ?>" name="id_card">
+                                <button type="submit" class="btn btn-light" style="margin-right:15px;" href="#">Close</button></for>
 	                        </div>
 	                    </div>
                     </div>

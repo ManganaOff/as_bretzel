@@ -73,6 +73,6 @@
             } 
         }  
         
-        //unlink($target_file);
+        unlink($target_file);
     }
 ?>
